@@ -1,0 +1,65 @@
+<!-- RESPONSIVE MAP -->
+<style>
+.map-responsive{
+    overflow:hidden;
+    padding-bottom:56.25%;
+    position:relative;
+    height:0;
+}
+.map-responsive iframe{
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    position:absolute;
+}
+</style>
+
+<!-- MAP API PARAMETERS -->
+<script>
+  function getQueryString() {
+    var result = {}, queryString = location.search.slice(1),
+        re = /([^&=]+)=([^&]*)/g, m;
+
+    while (m = re.exec(queryString)) {
+      result[decodeURIComponent(m[1])] = decodeURIComponent(m[2].replace(/\+/g, ' '));
+    }
+
+    return result;
+  }
+
+  const destination = getQueryString()["destination"];
+
+</script>
+
+<!-- FIND RESTAURANTS PAGE -->
+
+<div class="table-responsive">
+    <div class="table-wrapper">		
+      <div style="margin-top:100px; margin-bottom: 100px;">
+        <div class="container">
+          <div class="row table-responsive align-middle">
+
+            <!--BACK BUTTON -->
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" onclick="history.back()" style="margin:10px;">Back</button>
+            <!-- FIND RESTAURANTS -->
+            <h1><br>Find Restaurants:</h1>
+            <hr>
+            <p>View restaurants in <span id='destinationName'></span>:</p>
+            <script>
+              document.getElementById("destinationName").innerHTML = destination;
+            </script>
+
+            <!-- START OVER BUTTON -->
+            <a href="/" class="btn btn-outline-secondary my-2 my-sm-0" type="submit"></button>Change Destination</a>
+
+            <div style="margin-top:5%; margin-bottom: 5%;">
+            <div class="map-responsive">
+                <iframe width="600" height="450" style="border:0" loading="lazy" allowfullscreen id="map"></iframe>
+                <script>document.getElementById("map").src = 'https://www.google.com/maps/embed/v1/search?key=AIzaSyAmDZ54ndNzfjv0aONvMnz8phY1TmSO71A&q=restaurants+in+'+destination+'/';</script>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

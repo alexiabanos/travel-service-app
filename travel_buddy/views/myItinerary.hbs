@@ -1,0 +1,108 @@
+<!-- MY ITINERARY PAGE -->
+<div class="table-responsive">
+  <div class="table-wrapper">		
+    <div style="margin-top:50px; margin-bottom: 100px;">
+      <div class="container">
+        <div class="row table-responsive align-middle">
+
+          <!--BACK BUTTON -->
+			    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" onclick="history.back()">Back</button>
+
+          <!-- TRIP DETAILS -->
+          <h1><br>Travel Itinerary</h1>
+          <p>View your current itinerary:</p>
+          <hr>
+
+          <!-- FLIGHTS-->
+          <h2><br>Flights</h2>
+          <table class="table table-hover" > 
+              <thead class="table-light">
+                <tr>
+                <th>Departure Airport</th>
+                <th>Departure<br> Date</th>
+                <th>Departure Time</th>
+                <th>Arrival Airport</th>
+                <th>Arrival<br> Date</th>
+                <th>Arrival Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each data1}}
+                <tr>
+                  <td>{{this.depart_airp}}</td>
+                  <td>{{this.depart_date}}</td>
+                  <td>{{this.depart_time}}</td>
+                  <td>{{this.arrive_airp}}</td>
+                  <td>{{this.arrive_date}}</td>
+                  <td>{{this.arrive_time}}</td>
+              </tr>
+              {{/each}}
+              </tbody>
+          </table>
+          
+          <!-- MODIFY FLIGHTS -->
+          <a href="/addFlights" class="edit" data-bs-toggle="modal">
+          <button type="button" class="btn btn-primary" title="Modify">Add / Modify Flights</button></a>
+
+          <!-- HOTELS -->
+          <h2><br>Hotels</h2>
+          <table class="table table-hover" >
+              <thead class="table-light">
+                  <tr>
+                    <th>Hotel Name</th>
+                    <th>Hotel <br> Address</th>
+                    <th>Check-In <br> Date</th>
+                    <th>Check-In Time</th>
+                    <th>Check-Out <br> Date</th>
+                    <th>Check-Out Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    {{#each data3}}
+                    <td>{{hotel_name}}</td>
+                    <td>{{hotel_address}}</td>
+                    <td>{{in_date}}</td>
+                    <td>{{in_time}}</td>
+                    <td>{{out_date}}</td>
+                    <td>{{out_time}}</td>
+                  </tr>
+                  {{/each}}
+              </tbody>
+          </table>
+          <!-- MODIFY HOTELS -->
+          <a href="/addHotels" class="edit" data-bs-toggle="modal">
+          <button type="button" class="btn btn-primary" title="Modify">Add / Modify Hotels</button></a>
+          
+
+          <!-- EVENTS -->
+          <h2><br>Add Events</h2>
+          <table class="table table-hover" >
+              <thead class="table-light">
+                  <tr>
+                    <th>Event <br> Title</th>
+                    <th>Event <br> Date</th>
+                    <th>Event <br> Time</th>
+                    <th>Event <br> Type</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    {{#each data2}}
+                    <tr>
+                    <td>{{event_title}}</td>
+                    <td>{{event_date}}</td>
+                    <td>{{event_time}}</td>
+                    <td>{{event_type}}</td>
+                  </tr>
+                  {{/each}}
+              </tbody>
+          </table>
+
+              <!-- MODIFY EVENTS -->
+          <a href="/addEvents">
+          <button type="button" class="btn btn-primary" title="Modify">Add / Modify Events</button></a>
+        </div>
+      </div> 
+    </div>
+  </div>
+</div>

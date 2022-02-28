@@ -1,0 +1,70 @@
+<!-- START MENU PAGE -->
+
+<!-- QUERY PARAMETERS -->
+<script>
+  function getQueryString() {
+    var result = {}, queryString = location.search.slice(1),
+        re = /([^&=]+)=([^&]*)/g, m;
+
+    while (m = re.exec(queryString)) {
+      result[decodeURIComponent(m[1])] = decodeURIComponent(m[2].replace(/\+/g, ' '));
+    }
+    return result;
+  }
+  const destination = getQueryString()["destination"];
+
+  // IMAGE MICROSERVICE
+  var url = "http://flip3.engr.oregonstate.edu:12789/images/"+destination+"/1";
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", url);
+  xhr.onload = function(data, status) {
+    const response = JSON.parse(xhr.response);
+    console.log(response);
+    if (xhr.status === 200) {
+      image.src = response.imagePath0;
+    } else {
+      console.log("Image Not Found.")
+    }
+  }
+  xhr.onerror = function(err) { 
+    console.log("Network Error", err);
+  };
+  xhr.send();
+</script>
+
+<!-- START MENU -->
+<div style="margin-top:100px; margin-bottom: 100px;">
+    <div class="container">
+
+       <!-- BACK BUTTON -->
+	        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" onclick="history.back()" align=left> Back </button>
+
+      <div style="margin-top:100px; margin-bottom: 100px;"align="center">
+        <div class="container bg-light bg-opacity-100 p-5">
+
+          <!-- DISPLAY DESTINATION NAME -->
+          <h1>Let's go to <span id='destinationName'></span>!</h2>
+          <script>
+            document.getElementById("destinationName").innerHTML = destination;
+          </script>
+
+          <!-- DISPLAY IMAGE -->
+          <div style="margin-top:5%; margin-bottom: 5%;">
+            <img id="image" alt="Destination Photo" width="50%" height="80%">
+          </div>
+          <br>
+          
+          <!-- MENU OPTIONS -->
+          <div class="d-grid gap-2">
+            <a onclick="window.location='/findActivities'+window.location.search;">
+            <button class="btn btn-primary" type="button">Find Activities ></button></a>
+            <a onclick="window.location='/findRestaurants'+window.location.search;">
+            <button class="btn btn-primary" type="button">Find Restaurants ></button></a>
+            <a onclick="window.location='/addMenu'+window.location.search;">
+            <button class="btn btn-primary" type="button">Add Trip Details ></button></a>
+          </div>    
+        </div>
+      
+    </div>
+</div>

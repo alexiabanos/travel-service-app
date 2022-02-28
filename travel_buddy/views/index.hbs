@@ -1,0 +1,32 @@
+<!-- HOME PAGE -->
+
+<div class="container bg-light bg-opacity-100 p-5" style="margin-top:100px; margin-bottom: 100px;">
+  <h1 class="display-4">Take a buddy wherever you go</h1>
+<body>
+  <img id="image" src="" alt=""> 
+</body>
+
+  <!-- SEARCH BAR -->
+  <div class="input-group">
+    <form action="startMenu" method="GET">
+      <table>
+        <tr>
+          <td valign="top">
+          <input class="form-control form-control-lg" type="text" list="destinationOptions" id="exampleDestinations" placeholder="Where are we going?" name="destination" required></input>
+          <datalist id="destinationOptions">
+            <option value="New York">
+            <option value="Paris, France">
+            <option value="Paris, Texas">
+            <option value="London">
+            <option value="Los Angeles">
+            <option value="Mexico City">
+          </datalist>
+          </td>
+          <td valign="top">
+          <button class="btn btn-outline-primary btn-lg" type="submit">Let's Go!</button>
+          </td>
+        </tr>
+    </form>
+    </table>
+  </div>
+</div>

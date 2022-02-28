@@ -1,0 +1,184 @@
+<!-- FLIGHTS PAGE -->
+
+ <!-- MODALS -->
+<script>
+	var myModal = document.getElementById('myModal')
+	var myInput = document.getElementById('myInput')
+	myModal.addEventListener('shown.bs.modal', function () {
+	myInput.focus()
+	})
+</script>
+
+<div class="table-responsive">
+<div class="table-wrapper">			
+	<div style="margin-top:100px; margin-bottom: 100px;">
+	<div class="container">
+		<div class="row table-responsive align-middle">
+			
+			<!--BACK BUTTON -->
+			<button class="btn btn-outline-primary my-2 my-sm-0" type="submit" onclick="history.back()">Back</button>
+
+			<!-- FLIGHTS -->
+			<h1><br>Flights</h1>
+			<hr>
+			<p>View, edit or delete your flight details:</p>
+
+			<!-- ADD BUTTON -->
+			<table>
+				<tr>
+					<td colspan="6" align="left">
+					<a href="#addFlightModal" class="edit" data-bs-toggle="modal">
+					<button type="button" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-target="addFlightModal" title="Add">Add A New Flight + </button></a>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<!-- DATA TABLE -->
+			<table class="table table-hover" id="flights-table">
+				<thead class="table-light">
+					<tr>
+						<th>Departure Airport</th>
+						<th>Departure<br> Date</th>
+						<th>Departure Time</th>
+						<th>Arrival Airport</th>
+						<th>Arrival<br> Date</th>
+						<th>Arrival Time</th>
+						<th> Edit / Delete </th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each data}}
+					<tr>
+					<td>{{this.depart_airp}}</td>
+					<td>{{this.depart_date}}</td>
+					<td>{{this.depart_time}}</td>
+					<td>{{this.arrive_airp}}</td>
+					<td>{{this.arrive_date}}</td>
+					<td>{{this.arrive_time}}</td>
+					<!-- EDIT / DELETE -->
+					<td>
+						<a href="#editFlightModal" class="edit" data-bs-toggle="modal">
+						<i class="material-icons" data-bs-toggle="tooltip" data-bs-target="editFlightModal" title="Edit">&#xE254;</i></a>
+						<a href="#deleteFlightModal" class="delete" data-bs-toggle="modal">
+						<i class="material-icons" data-bs-toggle="tooltip" data-bs-target="deleteFlightModal"title="Delete">&#xE872;</i></a>
+						</td>
+					</tr>
+					{{/each}}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<!-- ADD MODAL -->
+<div id="addFlightModal" class="modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form>
+				<div class="modal-header">						
+					<h4 class="modal-title">Add Flight</h4>
+					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+		<p style="color:red;">Required Fields *</p>						
+					<div class="form-group">
+						<label>Departing Airport: *</label>
+						<input type="text" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Departing Date: *</label>
+						<input type="date" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Departing Time: *</label>
+						<input type="time" class="form-control" required>
+					</div>
+		<div class="form-group">
+						<label>Arrival Airport: *</label>
+						<input type="text" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Arrival Date: *</label>
+						<input type="date" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Arrival Time: *</label>
+						<input type="time" class="form-control" required>
+					</div>
+		</div>					
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-bs-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-success" value="Add">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- EDIT MODAL -->
+<div id="editFlightModal" class="modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form>
+				<div class="modal-header">						
+					<h4 class="modal-title">Edit Flight</h4>
+					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+					<div class="modal-body">
+		<p style="color:red;">Required Fields *</p>						
+					<div class="form-group">
+						<label>Departing Airport: *</label>
+						<input type="text" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Departing Date: *</label>
+						<input type="date" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Departing Time: *</label>
+						<input type="time" class="form-control" required>
+					</div>
+		<div class="form-group">
+						<label>Arrival Airport: *</label>
+						<input type="text" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Arrival Date: *</label>
+						<input type="date" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Arrival Time: *</label>
+						<input type="time" class="form-control" required>
+					</div>
+		</div>
+					<div class="modal-footer">
+					<input type="button" class="btn btn-outline-warning" data-bs-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-outline-success" value="Save">
+					</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- DELETE MODAL -->
+<div id="deleteFlightModal" class="modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form>
+				<div class="modal-header">						
+					<h4 class="modal-title">Delete Flight</h4>
+					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">					
+					<p>Are you sure you want to delete this Flight?</p>
+					<p>This action cannot be undone.</p>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn btn-outline-warning" data-bs-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-outline-danger" value="Delete">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
