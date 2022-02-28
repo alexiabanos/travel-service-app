@@ -1,7 +1,6 @@
-# Travel Buddy - Travel Planner
+# CS361 Final Project
 
-Users can plan trips by storing their flight, hotel and event reservations in a travel itinerary, 
-as well as use the Google Places API to find restaurants and attractions in their destinations.
+Project for CS 361: Includes TravelBuddy Traver Service and Unit Conversion microservice.
 
 ## Authors
 
@@ -14,3 +13,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Acknowledgments
 
 Final Project for CS 361 Software Engineering.
+Image Microservice provided by Ed Weid & Conversion Service provided for Emily Tchai.
