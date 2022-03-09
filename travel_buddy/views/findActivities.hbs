@@ -15,7 +15,7 @@
 }
 </style>
 
-<!-- MAP API PARAMETERS -->
+<!-- QUERY PARAMETERS -->
 <script>
   function getQueryString() {
     var result = {}, queryString = location.search.slice(1),
@@ -27,8 +27,8 @@
 
     return result;
   }
-
   const destination = getQueryString()["destination"];
+  var API_KEY = process.env.API_KEY;
 </script>
 
 <!-- FIND ACTIVITIES PAGE -->
@@ -59,7 +59,7 @@
 
               <!-- MAP IFRAME -->
               <iframe id='map' width="600" height="450" style="border:0" loading="lazy" allowfullscreen></iframe>
-              <script>document.getElementById('map').src = 'https://www.google.com/maps/embed/v1/search?key=API_KEY=attractions+in+'+destination+'/';</script>
+              <script>document.getElementById('map').src = 'https://www.google.com/maps/embed/v1/search?key='+API_KEY+'&q=attractions+in+'+destination+'/';</script>
             </div>
             </div>
           </div>

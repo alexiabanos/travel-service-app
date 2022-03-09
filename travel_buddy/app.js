@@ -9,7 +9,10 @@ PORT = 4922;
 
 // Database
 var db = require('./database/db-connector')
+
 require('dotenv').config()
+const API_KEY = process.env.API_KEY;
+console.log(API_KEY)
 
 // Handlebars
 const { engine } = require('express-handlebars');
