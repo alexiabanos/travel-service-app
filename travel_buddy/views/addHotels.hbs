@@ -1,23 +1,17 @@
-<!-- HOTELS PAGE -->
+<!-- HOTELS PAGE --> 
 
- <!-- MODALS -->
-<script>
-	var myModal = document.getElementById('myModal')
-	var myInput = document.getElementById('myInput')
-	myModal.addEventListener('shown.bs.modal', function () {
-	myInput.focus()
-	})
-</script>
+<!-- DELETE JS SCRIPT -->
+<script src="./js/hotel/delete_hotel.js"></script>
 
 <div style="margin-top:100px; margin-bottom: 100px;">
 	<div class="container">
 		<div class="row table-responsive align-middle">
-			
-			<!-- BACK BUTTON -->
-			<button class="btn btn-outline-primary my-2 my-sm-0" type="submit" onclick="history.back()">Back</button>
 
+			<!--BACK BUTTON -->
+			<button class="btn btn-outline-primary my-2 my-sm-0" type="submit" onclick="history.back()">Back</button>
+			
 			<!-- HOTELS -->
-			<h1><br>Hotels</h1>
+			<h1>Hotels</h1>
 			<hr>
 			<p>View, edit or delete your hotel details:</p>
 
@@ -25,29 +19,28 @@
 			<table>
 				<tr>
 					<td colspan="6" align="left">
-					<a href="#addHotelModal" class="edit" data-bs-toggle="modal">
-					<button type="button" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-target="addHotelModal" title="Add">Add A New Hotel + </button></a>
+					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addHotelModal" title="Add">Add A New Hotel + </button>
+					<br>
 					</td>
 				</tr>
 				</tbody>
 			</table>
 
 			<!-- DATA TABLE -->
-			<table class="table table-hover" id="Hotels-table">
+			<table class="table table-hover" id="hotels-table">
 				<thead class="table-light">
 					<tr>
-					<th>Hotel Name</th>
-                    <th>Hotel<br> Address</th>
-                    <th>Check-In <br>Date</th>
-                    <th>Check-In Time</th>
-                    <th>Check-Out <br>Date</th>
-                    <th>Check-Out Time</th>
-					<th> Edit / Delete </th>
+					{{#each data.[0]}}
+					<th>{{@key}}</th>
+					{{/each}}
+					<th>Delete</th>
+                	<th>Edit</th>
 					</tr>
 				</thead>
 				<tbody>
 					{{#each data}}
-					<tr>
+					<tr data-value={{this.hotel_id}}>
+					<td>{{this.hotel_id}}</td>
 					<td>{{this.hotel_name}}</td>
 					<td>{{this.hotel_address}}</td>
 					<td>{{this.in_date}}</td>
@@ -55,13 +48,13 @@
 					<td>{{this.out_date}}</td>
                     <td>{{this.out_time}}</td>
                     
-					<!-- EDIT / DELETE -->
-					<td>
-						<a href="#editHotelModal" class="edit" data-bs-toggle="modal">
-						<i class="material-icons" data-bs-toggle="tooltip" data-bs-target="editHotelModal" title="Edit">&#xE254;</i></a>
-						<a href="#deleteHotelModal" class="delete" data-bs-toggle="modal">
-						<i class="material-icons" data-bs-toggle="tooltip" data-bs-target="deleteHotelModal"title="Delete">&#xE872;</i></a>
-						</td>
+					<!-- DELETE BUTTON-->
+					<td><a href="#deleteHotelModal" class="delete" data-bs-toggle="modal" data-bs-target="#deleteHotelModal{{this.hotel_id}}"  data-value="{{this.hotel_id}}">
+					<button class="btn btn-outline-danger my-2 my-sm-0" >Delete</button></a></td>
+					
+					<!-- UPDATE  BUTTON-->
+					<td><a href="#updateHotelModal" class="update" data-bs-toggle="modal" data-bs-target="#updateHotelModal{{this.hotel_id}}"  data-value="{{this.hotel_id}}">
+					<button class="btn btn-outline-warning my-2 my-sm-0" >Edit</button></a></td>
 					</tr>
 					{{/each}}
 				</tbody>
@@ -74,38 +67,38 @@
 	<div id="addHotelModal" class="modal">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form>
+				<form id="add-hotel-form-ajax">
 					<div class="modal-header">						
 						<h4 class="modal-title">Add Hotel</h4>
 						<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">
-            <p style="color:red;">Required Fields (*)</p>					
+            		<p style="color:red;">Required Fields (*)</p>					
 						<div class="form-group">
-							<label>Hotel Name: *</label>
-							<input type="text" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label>Hotel Address: *</label>
-							<input type="text" class="form-control" required>
+							<label for="hotel_name">Hotel Name: *</label>
+							<input type="text" class="form-control" name="input-hotel_name" id="input-hotel_name" required>
 						</div>
 						<div class="form-group">
-							<label>Check-In Date: *</label>
-							<input type="date" class="form-control" required>
+							<label for="hotel_address">Hotel Address: *</label>
+							<input type="text" class="form-control" name="input-hotel_address" id="input-hotel_address" required>
 						</div>
-            <div class="form-group">
-							<label>Check-In Time: *</label>
-							<input type="time" class="form-control" required>
+						<div class="form-group">
+							<label for="in_date">Check-In Date: *</label>
+							<input type="date" class="form-control" name="input-in_date" id="input-in_date" required>
 						</div>
-            <div class="form-group">
-							<label>Check-Out Date: *</label>
-							<input type="date" class="form-control" required>
+            			<div class="form-group">
+							<label for="in_time">Check-In Time: *</label>
+							<input type="time" class="form-control" name="input-in_time" id="input-in_time" required>
 						</div>
-            <div class="form-group">
-							<label>Check-Out Time: *</label>
-							<input type="time" class="form-control" required>
+            			<div class="form-group">
+							<label for="out_date">Check-Out Date: *</label>
+							<input type="date" class="form-control" name="input-out_date" id="input-out_date" required>
 						</div>
-            </div>
+            			<div class="form-group">
+							<label for="out_time">Check-Out Time: *</label>
+							<input type="time" class="form-control" name="input-out_time" id="input-out_time" required>
+						</div>
+            		</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-bs-dismiss="modal" value="Cancel">
 						<input type="submit" class="btn btn-success" value="Add">
@@ -114,6 +107,9 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- ADD JS SCRIPT -->
+	<script src="./js/hotel/add_hotel.js"></script>
 
 	<!-- EDIT MODAL -->
 	<div id="editHotelModal" class="modal">
@@ -161,8 +157,9 @@
 		</div>
 	</div>
 
-		<!-- DELETE MODAL -->
-	<div id="deleteHotelModal" class="modal">
+	<!-- DELETE MODAL -->
+	{{#each data}}
+	<div id="deleteHotelModal{{this.hotel_id}}" class="modal">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
@@ -171,14 +168,15 @@
 						<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
-						<p>Are you sure you want to delete this Hotel?</p>
+						<p><b>Are you sure you want to delete this Hotel?</b></p>
 						<p>This action cannot be undone.</p>
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn btn-outline-warning" data-bs-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-outline-danger" value="Delete">
+						<input type="submit" class="btn btn-outline-danger" value="Delete" onclick="deleteHotel({{this.hotel_id}})">
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
+	{{/each}}

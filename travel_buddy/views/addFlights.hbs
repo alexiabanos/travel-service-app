@@ -1,184 +1,204 @@
 <!-- FLIGHTS PAGE -->
 
- <!-- MODALS -->
-<script>
-	var myModal = document.getElementById('myModal')
-	var myInput = document.getElementById('myInput')
-	myModal.addEventListener('shown.bs.modal', function () {
-	myInput.focus()
-	})
-</script>
+<!-- DELETE JS SCRIPT -->
+<script src="./js/flight/delete_flight.js"></script>
 
-<div class="table-responsive">
-<div class="table-wrapper">			
-	<div style="margin-top:100px; margin-bottom: 100px;">
-	<div class="container">
-		<div class="row table-responsive align-middle">
-			
-			<!--BACK BUTTON -->
-			<button class="btn btn-outline-primary my-2 my-sm-0" type="submit" onclick="history.back()">Back</button>
+  <div class="table-responsive">
+    <div class="table-wrapper">			
+      <div style="margin-top:100px; margin-bottom: 100px;">
+        <div class="container">
+          <div class="row table-responsive align-middle">
+			  
+			  <!--BACK BUTTON -->
+				<button class="btn btn-outline-primary my-2 my-sm-0" type="submit" onclick="history.back()">Back</button>
+                
+                <!-- FLIGHTS -->
+                <h1>Flights</h1>
+                <hr>
+                <p>View, edit or delete your flight details:</p>
 
-			<!-- FLIGHTS -->
-			<h1><br>Flights</h1>
-			<hr>
-			<p>View, edit or delete your flight details:</p>
+                <!-- ADD BUTTON -->
+                <table>
+					<tbody>
+                    <tr>
+                      <td colspan="6" align="left">
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFlightModal" title="Add">Add A New Flight + </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
 
-			<!-- ADD BUTTON -->
-			<table>
-				<tr>
-					<td colspan="6" align="left">
-					<a href="#addFlightModal" class="edit" data-bs-toggle="modal">
-					<button type="button" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-target="addFlightModal" title="Add">Add A New Flight + </button></a>
-					</td>
-				</tr>
-				</tbody>
-			</table>
-
-			<!-- DATA TABLE -->
-			<table class="table table-hover" id="flights-table">
-				<thead class="table-light">
-					<tr>
-						<th>Departure Airport</th>
-						<th>Departure<br> Date</th>
-						<th>Departure Time</th>
-						<th>Arrival Airport</th>
-						<th>Arrival<br> Date</th>
-						<th>Arrival Time</th>
-						<th> Edit / Delete </th>
-					</tr>
-				</thead>
-				<tbody>
-					{{#each data}}
-					<tr>
-					<td>{{this.depart_airp}}</td>
-					<td>{{this.depart_date}}</td>
-					<td>{{this.depart_time}}</td>
-					<td>{{this.arrive_airp}}</td>
-					<td>{{this.arrive_date}}</td>
-					<td>{{this.arrive_time}}</td>
-					<!-- EDIT / DELETE -->
-					<td>
-						<a href="#editFlightModal" class="edit" data-bs-toggle="modal">
-						<i class="material-icons" data-bs-toggle="tooltip" data-bs-target="editFlightModal" title="Edit">&#xE254;</i></a>
-						<a href="#deleteFlightModal" class="delete" data-bs-toggle="modal">
-						<i class="material-icons" data-bs-toggle="tooltip" data-bs-target="deleteFlightModal"title="Delete">&#xE872;</i></a>
+                <!-- DATA TABLE -->
+                <table class="table table-hover" id="flights-table">
+                    <thead class="table-light">
+                      <tr>
+                        {{#each data.[0]}}
+                        <th>{{@key}}</th>
+                        {{/each}}
+                        <th>Delete</th>
+                		<th>Edit</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {{#each data}}
+                      <tr data-value={{this.flight_id}}>
+                        <td>{{this.flight_id}}</td>
+                        <td>{{this.depart_airp}}</td>
+                        <td>{{this.depart_date}}</td>
+                        <td>{{this.depart_time}}</td>
+                        <td>{{this.arrive_airp}}</td>
+                        <td>{{this.arrive_date}}</td>
+                        <td>{{this.arrive_time}}</td>
+						
+                        <!-- DELETE BUTTON-->
+						<td>
+						<button class="btn btn-outline-danger my-2 my-sm-0" data-bs-toggle="modal" data-bs-target="#deleteFlightModal{{this.flight_id}}"  data-value="{{this.flight_id}}">Delete</button>
 						</td>
-					</tr>
-					{{/each}}
-				</tbody>
-			</table>
+						
+						<!-- UPDATE  BUTTON-->
+						<td>
+						<button class="btn btn-outline-warning my-2 my-sm-0" data-bs-toggle="modal" data-bs-target="#updateFlightModal{{this.flight_id}}"  data-value="{{this.flight_id}}">Update</button>
+						</td>
+                      </tr>
+                      {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+   <!-- ADD MODAL -->
+	<div id="addFlightModal" class="modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="add-flight-form-ajax">
+					<div class="modal-header">						
+						<h4 class="modal-title">Add Flight</h4>
+						<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					  <div class="modal-body">
+            			<p style="color:red;">Required Fields *</p>						
+						<div class="form-group">
+							<label for="depart_airp">Departing Airport: *</label>
+							<input type="text" class="form-control" name="input-depart_airp" id="input-depart_airp" required>
+						</div>
+						<div class="form-group">
+							<label for="depart_date">Departing Date: *</label>
+							<input type="date" class="form-control" name="input-depart_date" id="input-depart_date" required>
+						</div>
+						<div class="form-group">
+							<label for="depart_time">Departing Time: *</label>
+							<input type="time" class="form-control" name="input-depart_time" id="input-depart_time" required>
+						</div>
+            			<div class="form-group">
+							<label for="arrive_airp">Arrival Airport: *</label>
+							<input type="text" class="form-control" name="input-arrive_airp" id="input-arrive_airp" required>
+						</div>
+						<div class="form-group">
+							<label for="arrive_date">Arrival Date: *</label>
+							<input type="date" class="form-control" name="input-arrive_date" id="input-arrive_date" required>
+						</div>
+						<div class="form-group">
+							<label for="arrive_time">Arrival Time: *</label>
+							<input type="time" class="form-control" name="input-arrive_time" id="input-arrive_time" required>
+						</div>
+            			</div>
+					  <div class="modal-footer">
+						<input type="button" class="btn btn-outline-warning" data-bs-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-outline-success" value="Add">
+					  </div>
+				</form>
+			</div>
 		</div>
 	</div>
-</div>
 
-<!-- ADD MODAL -->
-<div id="addFlightModal" class="modal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form>
-				<div class="modal-header">						
-					<h4 class="modal-title">Add Flight</h4>
-					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">
-		<p style="color:red;">Required Fields *</p>						
-					<div class="form-group">
-						<label>Departing Airport: *</label>
-						<input type="text" class="form-control" required>
+	<!-- ADD JS SCRIPT -->
+	<script src="./js/flight/add_flight.js"></script>
+
+	<!-- UPDATE MODAL -->
+	{{#each data}}
+	<div class="modal" id="updateFlightModal{{this.flight_id}}">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="update-flight-form-ajax">
+					<div class="modal-header">						
+						<h4 class="modal-title">Update Invoice Item</h4>
+						<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
-					<div class="form-group">
-						<label>Departing Date: *</label>
-						<input type="date" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Departing Time: *</label>
-						<input type="time" class="form-control" required>
-					</div>
-		<div class="form-group">
-						<label>Arrival Airport: *</label>
-						<input type="text" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Arrival Date: *</label>
-						<input type="date" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Arrival Time: *</label>
-						<input type="time" class="form-control" required>
-					</div>
-		</div>					
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-bs-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-success" value="Add">
-				</div>
-			</form>
+					  <div class="modal-body">
+            			<p style="color:red;">Required Fields *</p>				
+						<div class="form-group">
+							<label for="input-flight_id-update">Flight ID: *</label>
+							<br>
+							<select name="input-invoiceItem_id-update" id="input-invoiceItem_id-update" disabled="disabled" required="required">
+								<option id="invoiceItem_id_field">{{this.invoiceItem_id}}</option>
+								{{#each @root.data}}
+								<option value="{{this.invoiceItem_id}}">{{this.invoiceItem_id}}</option>
+								{{/each}}
+							</select>
+							<br>
+						</div>
+						<br>
+						<div class="form-group">
+							<label for="input-invoice_id-update">Update Invoice ID: *</label>
+							<br>
+							<select name="input-invoice_id-update" id="input-invoice_id-update" required="required">
+								<option id="invoice_id_field">{{this.invoice_id}}</option>
+								{{#each @root.invoices}}
+								<option value="{{this.invoice_id}}">{{this.invoice_id}}</option>
+								{{/each}}
+							</select>
+							<br>
+						</div>
+						<br>
+						<div class="form-group">
+							<label for="input-plant_id-update">Update Plant ID: *</label>
+							<br>
+							<select name="input-plant_id-update" id="input-plant_id-update" required="required">
+								<option id="plant_name_field">{{this.plant_id}}</option>
+								{{#each @root.plants}}
+								<option value="{{this.plant_id}}">{{this.plant_name}}</option>
+								{{/each}}
+							</select>
+							<br>
+						</div>
+						<br>
+						<div class="form-group">
+							<label for="input-plant_quantity">Update Plant Quantity: *</label>
+							<br>
+							<input name="input-plant_quantity-update" id="input-plant_quantity-update" type="number" class="form-control" min="0" max="9999" step="1" placeholder="{{this.plant_quantity}}" value="{{this.plant_quantity}}" required>
+						</div>
+            		</div>
+					  <div class="modal-footer">
+						<input type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" value="Cancel">
+						<input id="update-submit" type="submit" class="btn btn-outline-success" value="Submit" onclick="updateInvoiceItem({{this.invoiceItem_id}})">
+					  </div>
+				</form>
+			</div>
 		</div>
 	</div>
-</div>
+	{{/each}}
 
-<!-- EDIT MODAL -->
-<div id="editFlightModal" class="modal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form>
-				<div class="modal-header">						
-					<h4 class="modal-title">Edit Flight</h4>
-					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-					<div class="modal-body">
-		<p style="color:red;">Required Fields *</p>						
-					<div class="form-group">
-						<label>Departing Airport: *</label>
-						<input type="text" class="form-control" required>
+	<!-- DELETE MODAL -->
+	{{#each data}}
+	<div id="deleteFlightModal{{this.flight_id}}" class="modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">						
+						<h4 class="modal-title">Delete Flight</h4>
+						<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
-					<div class="form-group">
-						<label>Departing Date: *</label>
-						<input type="date" class="form-control" required>
+					<div class="modal-body">					
+						<p><b>Are you sure you want to delete this Flight?</b></p>
+						<p>This action cannot be undone.</p>
 					</div>
-					<div class="form-group">
-						<label>Departing Time: *</label>
-						<input type="time" class="form-control" required>
-					</div>
-		<div class="form-group">
-						<label>Arrival Airport: *</label>
-						<input type="text" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Arrival Date: *</label>
-						<input type="date" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Arrival Time: *</label>
-						<input type="time" class="form-control" required>
-					</div>
-		</div>
 					<div class="modal-footer">
-					<input type="button" class="btn btn-outline-warning" data-bs-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-outline-success" value="Save">
+						<input type="button" class="btn btn btn-outline-warning" data-bs-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-outline-danger" value="Delete" onclick="deleteFlight({{this.flight_id}})">
 					</div>
-			</form>
+				</form>
+			</div>
 		</div>
 	</div>
-</div>
-
-<!-- DELETE MODAL -->
-<div id="deleteFlightModal" class="modal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form>
-				<div class="modal-header">						
-					<h4 class="modal-title">Delete Flight</h4>
-					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">					
-					<p>Are you sure you want to delete this Flight?</p>
-					<p>This action cannot be undone.</p>
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn btn-outline-warning" data-bs-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-outline-danger" value="Delete">
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
+	{{/each}}
