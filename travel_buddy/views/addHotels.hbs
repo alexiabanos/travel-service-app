@@ -30,9 +30,12 @@
 			<table class="table table-hover" id="hotels-table">
 				<thead class="table-light">
 					<tr>
-					{{#each data.[0]}}
-					<th>{{@key}}</th>
-					{{/each}}
+					<th>Hotel Name</th>
+                	<th>Address</th>
+					<th>Check-In Date</th>
+                	<th>Check-In Time</th>
+					<th>Check-Out Date</th>
+                	<th>Check-Out Time</th>
 					<th>Delete</th>
                 	<th>Edit</th>
 					</tr>
@@ -40,7 +43,6 @@
 				<tbody>
 					{{#each data}}
 					<tr data-value={{this.hotel_id}}>
-					<td>{{this.hotel_id}}</td>
 					<td>{{this.hotel_name}}</td>
 					<td>{{this.hotel_address}}</td>
 					<td>{{this.in_date}}</td>
@@ -52,8 +54,8 @@
 					<td><a href="#deleteHotelModal" class="delete" data-bs-toggle="modal" data-bs-target="#deleteHotelModal{{this.hotel_id}}"  data-value="{{this.hotel_id}}">
 					<button class="btn btn-outline-danger my-2 my-sm-0" >Delete</button></a></td>
 					
-					<!-- UPDATE  BUTTON-->
-					<td><a href="#updateHotelModal" class="update" data-bs-toggle="modal" data-bs-target="#updateHotelModal{{this.hotel_id}}"  data-value="{{this.hotel_id}}">
+					<!-- EDIT BUTTON-->
+					<td><a href="#editHotelModal" class="update" data-bs-toggle="modal" data-bs-target="#editHotelModal{{this.hotel_id}}"  data-value="{{this.hotel_id}}">
 					<button class="btn btn-outline-warning my-2 my-sm-0" >Edit</button></a></td>
 					</tr>
 					{{/each}}
@@ -100,7 +102,7 @@
 						</div>
             		</div>
 					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-bs-dismiss="modal" value="Cancel">
+						<input type="button" class="btn btn-outline-warning" data-bs-dismiss="modal" value="Cancel">
 						<input type="submit" class="btn btn-success" value="Add">
 					</div>
 				</form>
@@ -112,50 +114,63 @@
 	<script src="./js/hotel/add_hotel.js"></script>
 
 	<!-- EDIT MODAL -->
-	<div id="editHotelModal" class="modal">
+	{{#each data}}
+	<div id="editHotelModal{{this.hotel_id}}" class="modal">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form>
+				<form id="update-hotel-form-ajax">
 					<div class="modal-header">						
 						<h4 class="modal-title">Edit Hotel</h4>
 						<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">
-            <p style="color:red;">Required Fields *</p>						
+            		<p style="color:red;">Required Fields (*)</p>					
 						<div class="form-group">
-							<label>Hotel Name: *</label>
-							<input type="text" class="form-control" required>
+							<label for="hotel_id">
+							<input type="hidden" name="hotel_id-update" id="hotel_id-update" value={{this.hotel_id}}>
+							</label>
+							<label for="hotel_name">Hotel Name: *</label>
+							<input type="text" class="form-control" name="input-hotel_name-update" id="input-hotel_name-update" 
+								value="{{this.hotel_name}}" required>
 						</div>
 						<div class="form-group">
-							<label>Hotel Address: *</label>
-							<input type="text" class="form-control" required>
+							<label for="hotel_address">Hotel Address: *</label>
+							<input type="text" class="form-control" name="input-hotel_address-update" id="input-hotel_address-update" 
+								value="{{this.hotel_address}}" required>
 						</div>
 						<div class="form-group">
-							<label>Check-In Date: *</label>
-							<input type="date" class="form-control" required>
+							<label for="in_date">Check-In Date: *</label>
+							<input type="text" class="form-control" name="input-in_date-update" id="input-in_date-update" 
+								value="{{this.in_date}}" onfocus="(this.type='date')" onblur="(this.type='text')" required>
 						</div>
-            <div class="form-group">
-							<label>Check-In Time: *</label>
-							<input type="time" class="form-control" required>
+            			<div class="form-group">
+							<label for="in_time">Check-In Time: *</label>
+							<input type="text" class="form-control" name="input-in_time-update" id="input-in_time-update" 
+								value="{{this.in_time}}" onfocus="(this.type='time')" onblur="(this.type='text')" required>
 						</div>
-            <div class="form-group">
-							<label>Check-Out Date: *</label>
-							<input type="date" class="form-control" required>
+            			<div class="form-group">
+							<label for="out_date">Check-Out Date: *</label>
+							<input type="text" class="form-control" name="input-out_date-update" id="input-out_date-update" 
+								value="{{this.out_date}}" onfocus="(this.type='date')" onblur="(this.type='text')" required>
 						</div>
-            <div class="form-group">
-							<label>Check-Out Time: *</label>
-							<input type="time" class="form-control" required>
+            			<div class="form-group">
+							<label for="out_time">Check-Out Time: *</label>
+							<input type="text" class="form-control" name="input-out_time-update" id="input-out_time-update" 
+							value="{{this.out_time}}" onfocus="(this.type='time')" onblur="(this.type='text')" required>
 						</div>
-            </div>					
-					  <div class="modal-footer">
+            		</div>
+					<div class="modal-footer">
 						<input type="button" class="btn btn-outline-warning" data-bs-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-outline-success" value="Save">
-					  </div>
+						<input type="update-submit" class="btn btn-outline-success" value="Save Changes" onclick="updateHotel({{this.hotel_id}})">
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
+	{{/each}}
+
+	<!-- UPDATE JS SCRIPT -->
+	<script src="./js/hotel/update_hotel.js"></script>
 
 	<!-- DELETE MODAL -->
 	{{#each data}}

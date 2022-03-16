@@ -1,32 +1,30 @@
-function updateInvoiceItem(invoiceItem_id) {
+function updateEvent(event_id) {
     // Get form fields we need to get data from
-    let inputInvoiceItemId = document.querySelector(`#updateInvoiceItemModal${invoiceItem_id} #input-invoiceItem_id-update`);
-    let inputInvoiceId = document.querySelector(`#updateInvoiceItemModal${invoiceItem_id} #input-invoice_id-update`);
-    let inputPlantId = document.querySelector(`#updateInvoiceItemModal${invoiceItem_id} #input-plant_id-update`);
-    let inputPlantQuantity = document.querySelector(`#updateInvoiceItemModal${invoiceItem_id} #input-plant_quantity-update`);
+    let eventId = document.querySelector(`#editEventModal${event_id} #event_id-update`);
+    let inputEventTitle = document.querySelector(`#editEventModal${event_id} #input-event_title-update`);
+    let inputEventDate = document.querySelector(`#editEventModal${event_id} #input-event_date-update`);
+    let inputEventTime = document.querySelector(`#editEventModal${event_id} #input-event_time-update`);
+    let inputEventType = document.querySelector(`#editEventModal${event_id} #input-event_type-update`);
 
     // Get the values from the form fields
-    let invoiceItemIDValue = inputInvoiceItemId.value;
-    let invoiceIDValue = inputInvoiceId.value;
-    let plantIDValue = inputPlantId.value;
-    let plantQuantityValue = inputPlantQuantity.value;
-
-    // Plant quantity can't be null
-    if (isNaN(plantQuantityValue)) {
-        return;
-    }
+    let eventIdValue = eventId.value;
+    let eventTitleValue = inputEventTitle.value;
+    let eventDateValue = inputEventDate.value;
+    let eventTimeValue = inputEventTime.value;
+    let eventTypeValue = inputEventType.value;
 
     // Put our data we want to send in a javascript object
     let data = {
-        invoiceItem_id: invoiceItemIDValue,
-        invoice_id: invoiceIDValue,
-        plant_id: plantIDValue,
-        plant_quantity: plantQuantityValue
+        event_id: eventIdValue,
+        event_title: eventTitleValue,
+        event_date: eventDateValue,
+        event_time: eventTimeValue,
+        event_type: eventTypeValue
     }
 
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("PUT", "/put-invoiceItem-ajax", true);
+    xhttp.open("PUT", "/put-event-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
@@ -34,7 +32,10 @@ function updateInvoiceItem(invoiceItem_id) {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
             // Add the new data to the table
-            updateRow(xhttp.response, plantQuantityValue);
+            updateRow(xhttp.response, eventTitleValue);
+            updateRow(xhttp.response, eventDateValue);
+            updateRow(xhttp.response, eventTimeValue);
+            updateRow(xhttp.response, eventTypeValue);
 
         } else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
@@ -45,38 +46,43 @@ function updateInvoiceItem(invoiceItem_id) {
     xhttp.send(JSON.stringify(data));
 }
 
-function updateRow(data, invoiceItem_id) {
+function updateRow(data, event_id) {
     let parsedData = JSON.parse(data);
 
-    let table = document.getElementById("invoiceItems-table");
+    let table = document.getElementById("events-table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {
         console.log(table.rows[i].getAttribute('data-value'));
         //iterate through rows
         //rows would be accessed using the "row" variable assigned in the for loop
-        if (table.rows[i].getAttribute('data-value') == invoiceItem_id) {
+        if (table.rows[i].getAttribute('data-value') == event_id) {
 
-            // Get the location of the row where we found the matching invoiceItem ID
+            // Get the location of the row where we found the matching event ID
             let updateRowIndex = table.getElementsByTagName("tr")[i];
 
-            // Get td of invoice id value
+            // Get td of event_title value
             td = updateRowIndex.getElementsByTagName("td")[1];
 
-            // Reassign invoice id to our value we updated to
-            td.innerHTML = parsedData[0].invoice_id;
+            // Reassign event_title to our value we updated to
+            td.innerHTML = parsedData[0].event_title;
 
-            // Get td of plant id value
+            // Get td of event_date value
             td = updateRowIndex.getElementsByTagName("td")[2];
 
-            // Reassign plant id to our value we updated to
-            td.innerHTML = parsedData[0].plant_id;
+            // Reassign event_date to our value we updated to
+            td.innerHTML = parsedData[0].event_date;
 
-            // Get td of plantQuantity value
+            // Get td of event_time value
             td = updateRowIndex.getElementsByTagName("td")[3];
 
-            // Reassign plantQuantity to our value we updated to
-            td.innerHTML = parsedData[0].plant_quantity;
+            // Reassign event_time to our value we updated to
+            td.innerHTML = parsedData[0].event_time;
 
+            // Get td of event_type value
+            td = updateRowIndex.getElementsByTagName("td")[4];
+
+            // Reassign event_type to our value we updated to
+            td.innerHTML = parsedData[0].event_type;
             window.location.reload();
         }
     }

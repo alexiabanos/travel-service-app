@@ -111,7 +111,7 @@ app.post('/add-event-ajax', function(req, res) {
     let data = req.body;
 
     // Create the query and run it on the database
-    query1 = `INSERT INTO addEvents (event_title, event_date, event_time, event_type) VALUES ('${data.event_title}', '${data.event_date}', '${data.event_time}', '${data.event_type}');`;
+    query1 = `INSERT INTO addEvents (event_title, DATE_FORMAT(event_date, event_time, event_type) VALUES ('${data.event_title}', '${data.event_date}', '${data.event_time}', '${data.event_type}');`;
     db.pool.query(query1, function(error, rows, fields) {
 
         // Check to see if there was an error
@@ -221,7 +221,7 @@ app.post('/add-flight-ajax', function(req, res) {
 app.delete('/delete-event-ajax/', function(req, res, next) {
     let data = req.body;
     let event_id = parseInt(data.event_id);
-    let deleteEvent = `DELETE FROM Events WHERE event_id = ?;`;
+    let deleteEvent = `DELETE FROM addEvents WHERE event_id = ?;`;
 
     // Run the 1st query
     db.pool.query(deleteEvent, [event_id], function(error, rows, fields) {
@@ -255,7 +255,7 @@ app.delete('/delete-flight-ajax/', function(req, res, next) {
 app.delete('/delete-hotel-ajax/', function(req, res, next) {
     let data = req.body;
     let hotel_id = parseInt(data.hotel_id);
-    let deleteHotel = `DELETE FROM addhotels WHERE hotel_id = ?;`;
+    let deleteHotel = `DELETE FROM addHotels WHERE hotel_id = ?;`;
 
     // Run the 1st query
     db.pool.query(deleteHotel, [hotel_id], function(error, rows, fields) {
@@ -263,6 +263,123 @@ app.delete('/delete-hotel-ajax/', function(req, res, next) {
             // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
             console.log(error);
             res.sendStatus(400);
+        }
+    })
+});
+
+/*
+    PUT Requests
+*/
+
+// Edit Events
+app.put('/put-event-ajax', function(req, res, next) {
+    let data = req.body;
+    let event_id = parseInt(data.event_id);
+    let event_title = (data.event_title);
+    let event_date = (data.event_date);
+    let event_time = (data.event_time);
+    let event_type = (data.event_type);
+
+    let queryUpdateEvent = `UPDATE addEvents SET event_title = ?, event_date = ?, event_time = ?, event_type = ? WHERE addEvents.event_id = ?;`;
+    let selectEvent = `SELECT * FROM addEvents WHERE event_id = ?;`;
+
+    // Run the 1st query
+    db.pool.query(queryUpdateEvent, [event_title, event_date, event_time, event_type, event_id], function(error, rows, fields) {
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we run our second query and return that data 
+        else {
+            // Run the second query
+            db.pool.query(selectEvent, [event_id], function(error, rows, fields) {
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
+app.put('/put-flight-ajax', function(req, res, next) {
+    let data = req.body;
+    let flight_id = parseInt(data.flight_id);
+    let depart_airp = parseInt(data.depart_airp);
+    let depart_date = parseInt(data.depart_date);
+    let depart_time = parseInt(data.depart_time);
+    let arrive_airp = parseInt(data.arrive_airp);
+    let arrive_date = parseInt(data.arrive_date);
+    let arrive_time = parseInt(data.arrive_time);
+
+    let queryUpdateFlight = `UPDATE addFlights SET depart_airp = ?, depart_date = ?, depart_time = ?, arrive_airp = ?, arrive_date = ?, arrive_time = ? WHERE addFlights.flight_id = ?;`;
+    let selectFlight = `SELECT * FROM addFlights WHERE flight_id = ?;`;
+
+    // Run the 1st query
+    db.pool.query(queryUpdateFlight, [depart_airp, depart_date, depart_time, arrive_airp, arrive_date, arrive_time, flight_id], function(error, rows, fields) {
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we run our second query and return that data 
+        else {
+            // Run the second query
+            db.pool.query(selectFlight, [flight_id], function(error, rows, fields) {
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
+app.put('/put-hotel-ajax', function(req, res, next) {
+    let data = req.body;
+    let hotel_id = parseInt(data.hotel_id);
+    let hotel_name = parseInt(data.hotel_name);
+    let hotel_address = parseInt(data.hotel_address);
+    let in_date = parseInt(data.in_date);
+    let in_time = parseInt(data.in_time);
+    let out_date = parseInt(data.out_date);
+    let out_time = parseInt(data.out_time);
+
+    let queryUpdateHotel = `UPDATE addHotels SET hotel_name = ?, hotel_address = ?, in_date = ?, in_time = ?, out_date = ?, out_time = ? WHERE addHotels.hotel_id = ?;`;
+    let selectHotel = `SELECT * FROM addHotels WHERE hotel_id = ?;`;
+
+    // Run the 1st query
+    db.pool.query(queryUpdateHotel, [hotel_name, hotel_address, in_date, in_time, out_date, out_time, hotel_id], function(error, rows, fields) {
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we run our second query and return that data
+        else {
+            // Run the second query
+            db.pool.query(selectHotel, [hotel_id], function(error, rows, fields) {
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
         }
     })
 });

@@ -51,8 +51,6 @@ addEventForm.addEventListener("submit", function(e) {
 
     // Send the request and wait for the response
     xhttp.send(JSON.stringify(data));
-    window.location.reload();
-
 })
 
 addRowToTable = (data) => {
@@ -107,5 +105,4 @@ addRowToTable = (data) => {
     // Add the row to the table
     currentTable.appendChild(row);
     window.location.reload();
-
 }
