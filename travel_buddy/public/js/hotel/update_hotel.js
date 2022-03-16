@@ -22,10 +22,10 @@ function updateHotel(hotel_id) {
         hotel_id: hotelIdValue,
         hotel_name: hotelNameValue,
         hotel_address: hotelAddressValue,
-        in_date: inDateValue,
-        in_time: inTimeValue,
-        out_date: outDateValue,
-        out_time: outTimeValue
+        inDate: inDateValue,
+        inTime: inTimeValue,
+        outDate: outDateValue,
+        ouTtime: outTimeValue
     }
 
     // Setup our AJAX request
@@ -84,26 +84,25 @@ function updateRow(data, hotel_id) {
             td = updateRowIndex.getElementsByTagName("td")[3];
 
             // Reassign in_date to our value we updated to
-            td.innerHTML = parsedData[0].in_date;
+            td.innerHTML = parsedData[0].inDate;
 
             // Get td of hotel_type value
             td = updateRowIndex.getElementsByTagName("td")[4];
 
             // Reassign hotel_type to our value we updated to
-            td.innerHTML = parsedData[0].in_time;
+            td.innerHTML = parsedData[0].inTime;
 
             // Get td of out_date value
             td = updateRowIndex.getElementsByTagName("td")[5];
 
             // Reassign out_date to our value we updated to
-            td.innerHTML = parsedData[0].in_date;
+            td.innerHTML = parsedData[0].outDate;
 
             // Get td of out_time value
             td = updateRowIndex.getElementsByTagName("td")[6];
 
             // Reassign out_time to our value we updated to
-            td.innerHTML = parsedData[0].in_time;
-
+            td.innerHTML = parsedData[0].outTime;
             window.location.reload();
         }
     }

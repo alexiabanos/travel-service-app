@@ -3,23 +3,23 @@
 <!-- DELETE JS SCRIPT -->
 <script src="./js/event/delete_event.js"></script>
 
-<div style="margin-top:100px; margin-bottom: 100px;">
+<div style="margin-top:50px; margin-bottom: 100px;">
 	<div class="container">
 		<div class="row table-responsive align-middle">
 
-			<!--BACK BUTTON -->
-			<button class="btn btn-outline-primary my-2 my-sm-0" type="submit" onclick="history.back()">Back</button>
+			<!-- ADD MENU BUTTON -->
+            <a onclick="window.location='/addMenu'+window.location.search;"><button class="btn btn-outline-secondary btn-circle mb-5" type="submit" align=left> x </button></a>
 			
 			<!-- EVENTS -->
 			<h1>Events</h1>
-			<hr>
+			<br>
 			<p>View, edit or delete your event details:</p>
 
 			<!-- ADD BUTTON -->
 			<table>
 				<tr>
 					<td colspan="6" align="left">
-					<button class="btn btn-primary my-2 my-sm-0"  data-bs-toggle="modal" data-bs-target="#addEventModal">Add A New Event + </button>
+					<button class="btn btn-primary mt-3 mb-3"  data-bs-toggle="modal" data-bs-target="#addEventModal">Add A New Event + </button>
 					<br>
 					</td>
 				</tr>
@@ -27,8 +27,8 @@
 			</table>
 
 			<!-- DATA TABLE -->
-			<table class="table table-hover" id="events-table">
-				<thead class="table-light">
+			<table class="table" id="events-table">
+				<thead class="table-light text-nowrap">
 					<th>Event Title</th>
                 	<th>Date</th>
 					<th>Time</th>
@@ -40,10 +40,9 @@
 				<tbody>
 					{{#each data}}
 					<tr data-value={{this.event_id}}>
-					<td>{{this.event_id}}</td>
 					<td>{{this.event_title}}</td>
-					<td>{{this.event_date}}</td>
-					<td>{{this.event_time}}</td>
+					<td>{{this.eventDate}}</td>
+					<td>{{this.eventTime}}</td>
 					<td>{{this.event_type}}</td>
 
 					<!-- DELETE BUTTON-->
@@ -57,6 +56,10 @@
 					{{/each}}
 				</tbody>
 			</table>
+
+			<!-- MY ITINERARY BUTTON -->
+            <a onclick="window.location='/myItinerary'+window.location.search;"><button class="btn btn-outline-primary mb-5" type="submit" align=left>My Itinerary &#8680;</button></a>
+
 		</div>
 	</div>
 </div>
@@ -112,7 +115,7 @@
 					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">
-				<p style="color:red;">Required Fields *</p>						
+					<p style="color:red;">Required Fields *</p>						
 					<div class="form-group">
 						<label for="event_id">
 						<input type="hidden" name="event_id-update" id="event_id-update" value={{this.event_id}}>
@@ -123,16 +126,16 @@
 					</div>
 					<div class="form-group">
 						<label for="event_date">Event Date *</label>
-						<input type="text" class="form-control"  name="input-event_date-update" id="input-event_date-update" value="{{this.event_date}}" onfocus="(this.type='date')" onblur="(this.type='text')" required/>
+						<input type="text" class="form-control"  name="input-event_date-update" id="input-event_date-update" value="{{this.eventDate}}" onfocus="(this.type='date')" onblur="(this.type='text')" required/>
 					</div>					
-				<div class="form-group">
+						<div class="form-group">
 						<label for="event_time">Event Time *</label>
-						<input type="text" class="form-control" name="input-event_time-update" id="input-event_time-update" value="{{this.event_time}}" onfocus="(this.type='time')" onblur="(this.type='text')" required/>				
-				</div>
-				<div class="form-group">
+						<input type="text" class="form-control" name="input-event_time-update" id="input-event_time-update" value="{{this.eventTime}}" onfocus="(this.type='time')" onblur="(this.type='text')" required/>				
+					</div>
+					<div class="form-group">
 						<label for="event_type">Event Type *</label>
 						<input type="text" class="form-control" name="input-event_type-update" id="input-event_type-update" value="{{this.event_type}}" required/>				
-				</div>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-outline-warning" data-bs-dismiss="modal" value="Cancel">

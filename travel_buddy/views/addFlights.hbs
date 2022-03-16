@@ -9,12 +9,12 @@
         <div class="container">
           <div class="row table-responsive align-middle">
 			  
-			  <!--BACK BUTTON -->
-				<button class="btn btn-outline-primary my-2 my-sm-0" type="submit" onclick="history.back()">Back</button>
+			  <!-- ADD MENU BUTTON -->
+            	<a onclick="window.location='/addMenu'+window.location.search;"><button class="btn btn-outline-secondary mb-5" type="submit" align=left> x </button></a>
                 
                 <!-- FLIGHTS -->
                 <h1>Flights</h1>
-                <hr>
+				<br>
                 <p>View, edit or delete your flight details:</p>
 
                 <!-- ADD BUTTON -->
@@ -22,52 +22,54 @@
 					<tbody>
                     <tr>
                       <td colspan="6" align="left">
-                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFlightModal" title="Add">Add A New Flight + </button>
+                      <button type="button" class="btn btn-primary mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#addFlightModal" title="Add">Add A New Flight + </button>
                       </td>
                     </tr>
                   </tbody>
                 </table>
 
                 <!-- DATA TABLE -->
-                <table class="table table-hover" id="flights-table">
-                    <thead class="table-light">
+                <table class="table" id="flights-table">
+                    <thead class="table-light text-nowrap">
                       <tr>
-                        <th>Departing <br> Airport</th>
-						<th>Departure <br> Date</th>
-						<th>Departure <br> Time</th>
-						<th>Arriving <br> Airport</th>
-						<th>Arrival <br> Date</th>
-						<th>Arrival <br> Time</th>
+                        <th>Departure</th>
+						<th>Date</th>
+						<th>Time</th>
+						<th>Arrival</th>
+						<th>Date</th>
+						<th>Time</th>
                         <th>Delete</th>
                 		<th>Edit</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {{#each data}}
-                      <tr data-value={{this.flight_id}}>
-                        <td>{{this.flight_id}}</td>
-                        <td>{{this.depart_airp}}</td>
-                        <td>{{this.depart_date}}</td>
-                        <td>{{this.depart_time}}</td>
-                        <td>{{this.arrive_airp}}</td>
-                        <td>{{this.arrive_date}}</td>
-                        <td>{{this.arrive_time}}</td>
+						{{#each data}}
+						<tr data-value={{this.flight_id}}>
+						<td>{{this.depart_airp}}</td>
+						<td>{{this.departDate}}</td>
+						<td>{{this.departTime}}</td>
+						<td>{{this.arrive_airp}}</td>
+						<td>{{this.arriveDate}}</td>
+						<td>{{this.arriveTime}}</td>
 						
-                        <!-- DELETE BUTTON-->
-						<td>
-						<button class="btn btn-outline-danger my-2 my-sm-0" data-bs-toggle="modal" data-bs-target="#deleteFlightModal{{this.flight_id}}"  data-value="{{this.flight_id}}">Delete</button>
-						</td>
+						<!-- DELETE BUTTON-->
+						<td><a href="#deleteFlightModal" class="delete" data-bs-toggle="modal" data-bs-target="#deleteFlightModal{{this.flight_id}}"  data-value="{{this.flight_id}}">
+						<button class="btn btn-outline-danger my-2 my-sm-0" >Delete</button></a></td>
 						
 						<!-- EDIT BUTTON-->
-						<td>
-						<button class="btn btn-outline-warning my-2 my-sm-0" data-bs-toggle="modal" data-bs-target="#editFlightModal{{this.flight_id}}"  data-value="{{this.flight_id}}">Edit</button>
-						</td>
-                      </tr>
+						<td><a href="#editFlightModal" class="update" data-bs-toggle="modal" data-bs-target="#editFlightModal{{this.flight_id}}"  data-value="{{this.flight_id}}">
+						<button class="btn btn-outline-warning my-2 my-sm-0" >Edit</button></a></td>
+						</tr>
                       {{/each}}
                     </tbody>
                 </table>
+
+				<!-- MY ITINERARY BUTTON -->
+            	<a onclick="window.location='/myItinerary'+window.location.search;"><button class="btn btn-outline-primary mb-5" type="submit" align=left> My Itinerary  &#8680;</button></a>
+
             </div>
         </div>
+
     </div>
 
    <!-- ADD MODAL -->
@@ -140,12 +142,12 @@
 						<div class="form-group">
 							<label for="depart_date">Departing Date: *</label>
 							<input type="text" class="form-control" name="input-depart_date-update" id="input-depart_date-update" 
-							value="{{this.depart_date}}" onfocus="(this.type='date')" onblur="(this.type='text')" required/>
+							value="{{this.departDate}}" onfocus="(this.type='date')" onblur="(this.type='text')" required/>
 						</div>
 						<div class="form-group">
 							<label for="depart_time">Departing Time: *</label>
 							<input type="text" class="form-control" name="input-depart_time-update" id="input-depart_time-update" 
-							value="{{this.depart_time}}" onfocus="(this.type='time')" onblur="(this.type='text')" required/>
+							value="{{this.departTime}}" onfocus="(this.type='time')" onblur="(this.type='text')" required/>
 						</div>
             			<div class="form-group">
 							<label for="arrive_airp">Arrival Airport: *</label>
@@ -154,17 +156,17 @@
 						<div class="form-group">
 							<label for="arrive_date">Arrival Date: *</label>
 							<input type="text" class="form-control" name="input-arrive_date-update" id="input-arrive_date-update" 
-								value="{{this.arrive_date}}" onfocus="(this.type='date')" onblur="(this.type='text')"required/>
+								value="{{this.arriveDate}}" onfocus="(this.type='date')" onblur="(this.type='text')"required/>
 						</div>
 						<div class="form-group">
 							<label for="arrive_time">Arrival Time: *</label>
 							<input type="text" class="form-control" name="input-arrive_time-update" id="input-arrive_time-update" 
-							value="{{this.arrive_time}}" onfocus="(this.type='time')" onblur="(this.type='text')" required/>
+							value="{{this.arriveTime}}" onfocus="(this.type='time')" onblur="(this.type='text')" required/>
 						</div>
             			</div>
 					  <div class="modal-footer">
 						<input type="button" class="btn btn-outline-warning" data-bs-dismiss="modal" value="Cancel">
-						<input type="update-submit" class="btn btn-outline-success" value="Save Changes" onclick="updateFlight({{this.flight_id}})">
+						<input type="submit" class="btn btn-outline-success" value="Save Changes" onclick="updateFlight({{this.flight_id}})">
 					  </div>
 				</form>
 			</div>
@@ -173,7 +175,7 @@
 	{{/each}}
 
 	<!-- UPDATE JS SCRIPT -->
-	<script src="./js/hotel/update_hotel.js"></script>
+	<script src="./js/flight/update_flight.js"></script>
 
 	<!-- DELETE MODAL -->
 	{{#each data}}

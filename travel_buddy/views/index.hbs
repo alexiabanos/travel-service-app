@@ -1,15 +1,18 @@
 <!-- HOME PAGE -->
 
-<div class="container bg-light bg-opacity-100 p-5" style="margin-top:100px; margin-bottom: 100px;">
-  <h1 class="display-4">Take a buddy wherever you go</h1>
-<body>
-  <img id="image" src="" alt=""> 
-</body>
-
+<div class="container" style="margin-bottom: 100px;">
+  <img src="./assets/images/TravelBuddy.png">
+  
   <!-- SEARCH BAR -->
   <div class="input-group">
     <form action="startMenu" method="GET">
       <table>
+        <tr>
+          <td valign="top">
+          <h4>Take a buddy anywhere:</h4>
+          <br>
+          </td>
+        </tr>
         <tr>
           <td valign="top">
           <input class="form-control form-control-lg" type="text" list="destinationOptions" id="exampleDestinations" placeholder="Where are we going?" name="destination" required></input>
@@ -23,7 +26,7 @@
           </datalist>
           </td>
           <td valign="top">
-          <button class="btn btn-outline-primary btn-lg" type="submit">Let's Go!</button>
+          <button class="btn btn-outline-primary btn-lg" type="submit">&#8680;</button>
           </td>
         </tr>
     </form>

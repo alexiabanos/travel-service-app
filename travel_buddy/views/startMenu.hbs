@@ -14,7 +14,7 @@
   const destination = getQueryString()["destination"];
 
   // IMAGE MICROSERVICE
-  var url = "http://flip3.engr.oregonstate.edu:12789/images/"+destination+"/1";
+  var url = "http://flip3.engr.oregonstate.edu:12789/images/"+destination+"traveling/3";
 
   const xhr = new XMLHttpRequest();
   xhr.open("GET", url);
@@ -22,7 +22,9 @@
     const response = JSON.parse(xhr.response);
     console.log(response);
     if (xhr.status === 200) {
-      image.src = response.imagePath0;
+      locationImage.src = response.imagePath0;
+      attractionImage.src = response.imagePath1;
+      restaurantImage.src = response.imagePath2;
     } else {
       console.log("Image Not Found.")
     }
@@ -35,36 +37,60 @@
 
 <!-- START MENU -->
 <div style="margin-top:100px; margin-bottom: 100px;">
-    <div class="container">
+  <div class="container"> 
 
-       <!-- BACK BUTTON -->
-	        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" onclick="history.back()" align=left> Back </button>
+    <div style="margin-top:100px; margin-bottom: 100px;">
+      <div class="container p-5">
+        
+        <!-- BACK BUTTON -->
+        <a href="/"><button class="btn btn-outline-secondary mb-5" type="submit" align=left> &#x21ba; New Destination</button></a>
+        
+        <!-- DESTINATION NAME -->
+        <h1>Let's go to <span id='destinationName'></span></h2>
 
-      <div style="margin-top:100px; margin-bottom: 100px;"align="center">
-        <div class="container bg-light bg-opacity-100 p-5">
+        <script>
+          if (typeof destination === "undefined" || null){
+            document.getElementById("destinationName").innerHTML = "a new place";
+          } else{
+           document.getElementById("destinationName").innerHTML = destination; 
+          }
+        </script>
 
-          <!-- DISPLAY DESTINATION NAME -->
-          <h1>Let's go to <span id='destinationName'></span>!</h2>
-          <script>
-            document.getElementById("destinationName").innerHTML = destination;
-          </script>
-
-          <!-- DISPLAY IMAGE -->
-          <div style="margin-top:5%; margin-bottom: 5%;">
-            <img id="image" alt="Destination Photo" width="50%" height="80%">
+        <!-- MENU OPTIONS -->
+        <div class="card-deck mt-5">
+          <div class="card" style="width: 18rem;">
+            <img id="locationImage" class="card-img-top" style="height: 13rem;">
+            <div class="card-block">
+              <div class="card-body">
+                <h5 class="card-title">What to do?</h5>
+                <p class="card-text" align="left">Let your travel buddy suggest local attractions for your trip.</p>
+                <a onclick="window.location='/findActivities'+window.location.search;"> <button class="btn btn-outline-primary btn-lg btn-block" type="button">Find Activities</button></a>
+              </div>
+            </div>
           </div>
-          <br>
-          
-          <!-- MENU OPTIONS -->
-          <div class="d-grid gap-2">
-            <a onclick="window.location='/findActivities'+window.location.search;">
-            <button class="btn btn-primary" type="button">Find Activities ></button></a>
-            <a onclick="window.location='/findRestaurants'+window.location.search;">
-            <button class="btn btn-primary" type="button">Find Restaurants ></button></a>
-            <a onclick="window.location='/addMenu'+window.location.search;">
-            <button class="btn btn-primary" type="button">Add Trip Details ></button></a>
-          </div>    
+          <div class="card" style="width: 18rem;">
+            <img id="attractionImage" class="card-img-top" style="height: 13rem;">
+              <div class="card-block">
+                <div class="card-body">
+                  <h5 class="card-title">Where to eat?</h5>
+                  <p class="card-text" align="left">Your buddy can suggest local restaurants for your trip.</p>
+                  <a onclick="window.location='/findRestaurants'+window.location.search;"> <button class="btn btn-outline-primary btn-lg btn-block" type="button">Find Restaurants</button></a>
+                </div>
+              </div>
+            </div>
+          <div class="card" style="width: 18rem;">
+            <img id="restaurantImage" class="card-img-top" style="height: 13rem;">
+            <div class="card-block">
+              <div class="card-body">
+                <h5 class="card-title">What's the plan?</h5>
+                <p class="card-text" align="left">Keep track of flight, hotel and event reservations.</p>
+                <a onclick="window.location='/addMenu'+window.location.search;"> <button class="btn btn-outline-primary btn-lg btn-block" type="button">Add Reservations</button></a>
+              </div>
+            </div>
+          </div>
         </div>
-      
+
+      </div>
     </div>
+  </div>
 </div>

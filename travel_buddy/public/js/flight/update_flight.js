@@ -21,11 +21,11 @@ function updateFlight(flight_id) {
     let data = {
         flight_id: flightIdValue,
         depart_airp: departAirpValue,
-        depart_date: departDateValue,
-        depart_time: departTimeValue,
+        departDate: departDateValue,
+        departTime: departTimeValue,
         arrive_airp: arriveAirpValue,
-        arrive_date: arriveDateValue,
-        arrive_time: arriveTimeValue
+        arriveDate: arriveDateValue,
+        arriveTime: arriveTimeValue
     }
 
     // Setup our AJAX request
@@ -78,13 +78,13 @@ function updateRow(data, flight_id) {
             td = updateRowIndex.getElementsByTagName("td")[2];
 
             // Reassign depart_date to our value we updated to
-            td.innerHTML = parsedData[0].depart_date;
+            td.innerHTML = parsedData[0].departDate;
 
             // Get td of depart_time value
             td = updateRowIndex.getElementsByTagName("td")[3];
 
             // Reassign depart_time to our value we updated to
-            td.innerHTML = parsedData[0].depart_time;
+            td.innerHTML = parsedData[0].departTime;
 
             // Get td of arrive_airp value
             td = updateRowIndex.getElementsByTagName("td")[4];
@@ -96,14 +96,13 @@ function updateRow(data, flight_id) {
             td = updateRowIndex.getElementsByTagName("td")[5];
 
             // Reassign arrive_date to our value we updated to
-            td.innerHTML = parsedData[0].depart_time;
+            td.innerHTML = parsedData[0].arriveDate;
 
             // Get td of arrive_time value
             td = updateRowIndex.getElementsByTagName("td")[6];
 
             // Reassign arrive_time to our value we updated to
-            td.innerHTML = parsedData[0].arrive_airp;
-
+            td.innerHTML = parsedData[0].arriveTime;
             window.location.reload();
         }
     }

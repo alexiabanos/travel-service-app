@@ -6,55 +6,52 @@
         <div class="row table-responsive align-middle">
 
           <!--BACK BUTTON -->
-			    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" onclick="history.back()">Back</button>
+			    <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" onclick="window.location='/addMenu'+window.location.search;"> x </button>
 
           <!-- TRIP DETAILS -->
           <h1><br>Travel Itinerary</h1>
-          <p>View your current itinerary:</p>
-          <hr>
 
           <!-- FLIGHTS-->
           <h2><br>Flights</h2>
-          <table class="table table-hover" > 
-              <thead class="table-light">
+          <table class="table" > 
+              <thead class="table-light text-nowrap">
                 <tr>
-                <th>Departure Airport</th>
-                <th>Departure<br> Date</th>
-                <th>Departure Time</th>
-                <th>Arrival Airport</th>
-                <th>Arrival<br> Date</th>
-                <th>Arrival Time</th>
+                <th>Departing</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Arrival</th>
+                <th>Date</th>
+                <th>Time</th>
                 </tr>
               </thead>
               <tbody>
                 {{#each data1}}
                 <tr>
                   <td>{{this.depart_airp}}</td>
-                  <td>{{this.depart_date}}</td>
-                  <td>{{this.depart_time}}</td>
+                  <td>{{this.departDate}}</td>
+                  <td>{{this.departTime}}</td>
                   <td>{{this.arrive_airp}}</td>
-                  <td>{{this.arrive_date}}</td>
-                  <td>{{this.arrive_time}}</td>
+                  <td>{{this.arriveDate}}</td>
+                  <td>{{this.arriveTime}}</td>
               </tr>
               {{/each}}
               </tbody>
           </table>
           
           <!-- MODIFY FLIGHTS -->
-          <a href="/addFlights" class="edit" data-bs-toggle="modal">
-          <button type="button" class="btn btn-primary" title="Modify">Add / Modify Flights</button></a>
+			    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" onclick="window.location='/addFlights'+window.location.search;"> Modify Flights  &#8680;</button>
 
           <!-- HOTELS -->
           <h2><br>Hotels</h2>
-          <table class="table table-hover" >
+          <table class="table" >
               <thead class="table-light">
                   <tr>
-                    <th>Hotel Name</th>
-                    <th>Hotel <br> Address</th>
-                    <th>Check-In <br> Date</th>
-                    <th>Check-In Time</th>
-                    <th>Check-Out <br> Date</th>
-                    <th>Check-Out Time</th>
+                    <th>Hotel</th>
+                    <th>Address</th>
+                    <th>Check-In</th>
+                    <th>Check-In</th>
+                    <th>Check-Out</th>
+                    <th>Check-Out</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -62,45 +59,43 @@
                     {{#each data3}}
                     <td>{{hotel_name}}</td>
                     <td>{{hotel_address}}</td>
-                    <td>{{in_date}}</td>
-                    <td>{{in_time}}</td>
-                    <td>{{out_date}}</td>
-                    <td>{{out_time}}</td>
+                    <td>{{inDate}}</td>
+                    <td>{{inTime}}</td>
+                    <td>{{outDate}}</td>
+                    <td>{{outTime}}</td>
                   </tr>
                   {{/each}}
               </tbody>
           </table>
           <!-- MODIFY HOTELS -->
-          <a href="/addHotels" class="edit" data-bs-toggle="modal">
-          <button type="button" class="btn btn-primary" title="Modify">Add / Modify Hotels</button></a>
-          
+			    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" onclick="window.location='/addHotels'+window.location.search;"> Modify Hotels  &#8680;</button>
 
           <!-- EVENTS -->
           <h2><br>Add Events</h2>
-          <table class="table table-hover" >
+          <table class="table" >
               <thead class="table-light">
                   <tr>
-                    <th>Event <br> Title</th>
-                    <th>Event <br> Date</th>
-                    <th>Event <br> Time</th>
-                    <th>Event <br> Type</th>
+                    <th>Event Title</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Type</th>
                   </tr>
                   </thead>
                   <tbody>
                     {{#each data2}}
                     <tr>
                     <td>{{event_title}}</td>
-                    <td>{{event_date}}</td>
-                    <td>{{event_time}}</td>
+                    <td>{{eventDate}}</td>
+                    <td>{{eventTime}}</td>
                     <td>{{event_type}}</td>
                   </tr>
                   {{/each}}
               </tbody>
           </table>
 
-              <!-- MODIFY EVENTS -->
-          <a href="/addEvents">
-          <button type="button" class="btn btn-primary" title="Modify">Add / Modify Events</button></a>
+          <!-- MODIFY EVENTS -->
+			    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" onclick="window.location='/addEvents'+window.location.search;"> Modify Events  &#8680;</button>
+
         </div>
       </div> 
     </div>

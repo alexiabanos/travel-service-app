@@ -17,8 +17,8 @@ function updateEvent(event_id) {
     let data = {
         event_id: eventIdValue,
         event_title: eventTitleValue,
-        event_date: eventDateValue,
-        event_time: eventTimeValue,
+        eventDate: eventDateValue,
+        eventTime: eventTimeValue,
         event_type: eventTypeValue
     }
 
@@ -70,13 +70,13 @@ function updateRow(data, event_id) {
             td = updateRowIndex.getElementsByTagName("td")[2];
 
             // Reassign event_date to our value we updated to
-            td.innerHTML = parsedData[0].event_date;
+            td.innerHTML = parsedData[0].eventDate;
 
             // Get td of event_time value
             td = updateRowIndex.getElementsByTagName("td")[3];
 
             // Reassign event_time to our value we updated to
-            td.innerHTML = parsedData[0].event_time;
+            td.innerHTML = parsedData[0].eventTime;
 
             // Get td of event_type value
             td = updateRowIndex.getElementsByTagName("td")[4];

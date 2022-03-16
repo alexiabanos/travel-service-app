@@ -1,6 +1,7 @@
 /*
     SETUP
 */
+const axios = require('axios')
 
 // Express
 const express = require('express');
@@ -12,7 +13,6 @@ var db = require('./database/db-connector')
 
 require('dotenv').config()
 const API_KEY = process.env.API_KEY;
-console.log(API_KEY)
 
 // Handlebars
 const { engine } = require('express-handlebars');
@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/addEvents', (req, res) => {
-    let query1 = "SELECT * FROM addEvents;"; // Define our query
+    let query1 = "SELECT event_id, event_title, DATE_FORMAT(event_date, '%M %d, %Y') AS eventDate, DATE_FORMAT(event_time, '%l:%i %p') as eventTime, event_type FROM addEvents;"; // Define our query
 
     db.pool.query(query1, function(error, rows, fields) { // Execute the query
 
@@ -49,7 +49,7 @@ app.get('/addEvents', (req, res) => {
 });
 
 app.get('/addFlights', (req, res) => {
-    let query1 = "SELECT * FROM addFlights;"; // Define our query
+    let query1 = "SELECT flight_id, depart_airp, DATE_FORMAT(depart_date, '%M %d, %Y') AS departDate, DATE_FORMAT(depart_time, '%l:%i %p') as departTime, arrive_airp, DATE_FORMAT(arrive_date, '%M %d, %Y') AS arriveDate, DATE_FORMAT(arrive_time, '%l:%i %p') as arriveTime FROM addFlights;"; // Define our query
 
     db.pool.query(query1, function(error, rows, fields) { // Execute the query
 
@@ -58,7 +58,7 @@ app.get('/addFlights', (req, res) => {
 });
 
 app.get('/addHotels', (req, res) => {
-    let query1 = "SELECT * FROM addHotels;"; // Define our query
+    let query1 = "SELECT hotel_id, hotel_name, hotel_address, DATE_FORMAT(in_date, '%M %d, %Y') AS inDate, DATE_FORMAT(in_time, '%l:%i %p') as inTime,  DATE_FORMAT(out_date, '%M %d, %Y') AS outDate, DATE_FORMAT(out_time, '%l:%i %p') as outTime FROM addHotels;"; // Define our query
 
     db.pool.query(query1, function(error, rows, fields) { // Execute the query
 
@@ -75,13 +75,18 @@ app.get('/findActivities', (req, res) => {
 });
 
 app.get('/findRestaurants', (req, res) => {
+    axios.get(`https://www.google.com/maps/embed/v1/search?key=${API_KEY}&q=restaurants+in+${destination}`)
+        .then(response => {res.json(response.data)})
+        .catch(error => {
+            console.log(error);
+        });
     res.render('findRestaurants')
 });
 
 app.get('/myItinerary', (req, res) => {
-    let query1 = "SELECT * FROM addFlights;"; // Define our query
-    let query2 = "SELECT * FROM addEvents;";
-    let query3 = "SELECT * FROM addHotels;";
+    let query1 = "SELECT flight_id, depart_airp, DATE_FORMAT(depart_date, '%M %d, %Y') AS departDate, DATE_FORMAT(depart_time, '%l:%i %p') as departTime, arrive_airp, DATE_FORMAT(arrive_date, '%M %d, %Y') AS arriveDate, DATE_FORMAT(arrive_time, '%l:%i %p') as arriveTime FROM addFlights;"; // Define our query
+    let query2 = "SELECT event_id, event_title, DATE_FORMAT(event_date, '%M %d, %Y') AS eventDate, DATE_FORMAT(event_time, '%l:%i %p') as eventTime, event_type FROM addEvents;";
+    let query3 = "SELECT hotel_id, hotel_name, hotel_address, DATE_FORMAT(in_date, '%M %d, %Y') AS inDate, DATE_FORMAT(in_time, '%l:%i %p') as inTime,  DATE_FORMAT(out_date, '%M %d, %Y') AS outDate, DATE_FORMAT(out_time, '%l:%i %p') as outTime FROM addHotels;";
 
     db.pool.query(query1, function(error, rows1, fields) { // Execute the query
 
@@ -111,7 +116,7 @@ app.post('/add-event-ajax', function(req, res) {
     let data = req.body;
 
     // Create the query and run it on the database
-    query1 = `INSERT INTO addEvents (event_title, DATE_FORMAT(event_date, event_time, event_type) VALUES ('${data.event_title}', '${data.event_date}', '${data.event_time}', '${data.event_type}');`;
+    query1 = `INSERT INTO addEvents (event_title, event_date, event_time, event_type) VALUES ('${data.event_title}', '${data.event_date}', '${data.event_time}', '${data.event_type}');`;
     db.pool.query(query1, function(error, rows, fields) {
 
         // Check to see if there was an error
@@ -276,8 +281,8 @@ app.put('/put-event-ajax', function(req, res, next) {
     let data = req.body;
     let event_id = parseInt(data.event_id);
     let event_title = (data.event_title);
-    let event_date = (data.event_date);
-    let event_time = (data.event_time);
+    let event_date = (data.eventDate);
+    let event_time = (data.eventTime);
     let event_type = (data.event_type);
 
     let queryUpdateEvent = `UPDATE addEvents SET event_title = ?, event_date = ?, event_time = ?, event_type = ? WHERE addEvents.event_id = ?;`;
@@ -311,12 +316,12 @@ app.put('/put-event-ajax', function(req, res, next) {
 app.put('/put-flight-ajax', function(req, res, next) {
     let data = req.body;
     let flight_id = parseInt(data.flight_id);
-    let depart_airp = parseInt(data.depart_airp);
-    let depart_date = parseInt(data.depart_date);
-    let depart_time = parseInt(data.depart_time);
-    let arrive_airp = parseInt(data.arrive_airp);
-    let arrive_date = parseInt(data.arrive_date);
-    let arrive_time = parseInt(data.arrive_time);
+    let depart_airp = (data.depart_airp);
+    let depart_date = (data.departDate);
+    let depart_time = (data.departTime);
+    let arrive_airp = (data.arrive_airp);
+    let arrive_date = (data.arriveDate);
+    let arrive_time = (data.arriveTime);
 
     let queryUpdateFlight = `UPDATE addFlights SET depart_airp = ?, depart_date = ?, depart_time = ?, arrive_airp = ?, arrive_date = ?, arrive_time = ? WHERE addFlights.flight_id = ?;`;
     let selectFlight = `SELECT * FROM addFlights WHERE flight_id = ?;`;
@@ -349,12 +354,12 @@ app.put('/put-flight-ajax', function(req, res, next) {
 app.put('/put-hotel-ajax', function(req, res, next) {
     let data = req.body;
     let hotel_id = parseInt(data.hotel_id);
-    let hotel_name = parseInt(data.hotel_name);
-    let hotel_address = parseInt(data.hotel_address);
-    let in_date = parseInt(data.in_date);
-    let in_time = parseInt(data.in_time);
-    let out_date = parseInt(data.out_date);
-    let out_time = parseInt(data.out_time);
+    let hotel_name = (data.hotel_name);
+    let hotel_address = (data.hotel_address);
+    let in_date = (data.inDate);
+    let in_time = (data.inTime);
+    let out_date = (data.outDate);
+    let out_time = (data.outTime);
 
     let queryUpdateHotel = `UPDATE addHotels SET hotel_name = ?, hotel_address = ?, in_date = ?, in_time = ?, out_date = ?, out_time = ? WHERE addHotels.hotel_id = ?;`;
     let selectHotel = `SELECT * FROM addHotels WHERE hotel_id = ?;`;

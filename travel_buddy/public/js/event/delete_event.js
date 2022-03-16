@@ -15,7 +15,6 @@ function deleteEvent(event_id) {
 
                 // Add the new data to the table
                 deleteRow(event_id);
-                window.location.reload();
 
             } else if (xhttp.readyState == 4 && xhttp.status != 204) {
                 console.log("There was an error with the input.")
@@ -34,6 +33,7 @@ function deleteRow(event_id) {
         //rows would be accessed using the "row" variable assigned in the for loop
         if (table.rows[i].getAttribute("data-value") == event_id) {
             table.deleteRow(i);
+            window.location.reload();
             break;
         }
     }
