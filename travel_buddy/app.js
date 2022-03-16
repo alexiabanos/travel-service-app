@@ -40,7 +40,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/addEvents', (req, res) => {
-    let query1 = "SELECT event_id, event_title, DATE_FORMAT(event_date, '%M %d, %Y') AS eventDate, DATE_FORMAT(event_time, '%l:%i %p') as eventTime, event_type FROM addEvents;"; // Define our query
+    // Define our query
+    let query1 = "SELECT event_id, event_title, DATE_FORMAT(event_date, '%M %d, %Y') AS eventDate, DATE_FORMAT(event_time, '%l:%i %p') as eventTime, event_type FROM addEvents;";
 
     db.pool.query(query1, function(error, rows, fields) { // Execute the query
 
@@ -75,11 +76,6 @@ app.get('/findActivities', (req, res) => {
 });
 
 app.get('/findRestaurants', (req, res) => {
-    axios.get(`https://www.google.com/maps/embed/v1/search?key=${API_KEY}&q=restaurants+in+${destination}`)
-        .then(response => {res.json(response.data)})
-        .catch(error => {
-            console.log(error);
-        });
     res.render('findRestaurants')
 });
 
@@ -121,7 +117,7 @@ app.post('/add-event-ajax', function(req, res) {
 
         // Check to see if there was an error
         if (error) {
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            // Log the error to the terminal so we know what went wrong 
             console.log(error)
             res.sendStatus(400);
         } else {
@@ -132,7 +128,7 @@ app.post('/add-event-ajax', function(req, res) {
                 // If there was an error on the second query, send a 400
                 if (error) {
 
-                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    // Log the error to the terminal so we know what went wrong
                     console.log(error);
                     res.sendStatus(400);
                 }
@@ -157,7 +153,7 @@ app.post('/add-hotel-ajax', function(req, res) {
 
         // Check to see if there was an error
         if (error) {
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            // Log the error to the terminal so we know what went wrong
             console.log(error)
             res.sendStatus(400);
         } else {
@@ -168,7 +164,7 @@ app.post('/add-hotel-ajax', function(req, res) {
                 // If there was an error on the second query, send a 400
                 if (error) {
 
-                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    // Log the error to the terminal so we know what went wrong
                     console.log(error);
                     res.sendStatus(400);
                 }
@@ -193,7 +189,7 @@ app.post('/add-flight-ajax', function(req, res) {
 
         // Check to see if there was an error
         if (error) {
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            // Log the error to the terminal so we know what went wrong
             console.log(error)
             res.sendStatus(400);
         } else {
@@ -204,7 +200,7 @@ app.post('/add-flight-ajax', function(req, res) {
                 // If there was an error on the second query, send a 400
                 if (error) {
 
-                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    // Log the error to the terminal so we know what went wrong
                     console.log(error);
                     res.sendStatus(400);
                 }
@@ -231,7 +227,7 @@ app.delete('/delete-event-ajax/', function(req, res, next) {
     // Run the 1st query
     db.pool.query(deleteEvent, [event_id], function(error, rows, fields) {
         if (error) {
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            // Log the error to the terminal so we know what went wrong
             console.log(error);
             res.sendStatus(400);
         }
@@ -248,7 +244,7 @@ app.delete('/delete-flight-ajax/', function(req, res, next) {
     // Run the 1st query
     db.pool.query(deleteFlight, [flight_id], function(error, rows, fields) {
         if (error) {
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            // Log the error to the terminal so we know what went wrong
             console.log(error);
             res.sendStatus(400);
         }
@@ -265,7 +261,7 @@ app.delete('/delete-hotel-ajax/', function(req, res, next) {
     // Run the 1st query
     db.pool.query(deleteHotel, [hotel_id], function(error, rows, fields) {
         if (error) {
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            // Log the error to the terminal so we know what went wrong
             console.log(error);
             res.sendStatus(400);
         }
@@ -292,7 +288,7 @@ app.put('/put-event-ajax', function(req, res, next) {
     db.pool.query(queryUpdateEvent, [event_title, event_date, event_time, event_type, event_id], function(error, rows, fields) {
         if (error) {
 
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            // Log the error to the terminal so we know what went wrong
             console.log(error);
             res.sendStatus(400);
         }
@@ -330,7 +326,7 @@ app.put('/put-flight-ajax', function(req, res, next) {
     db.pool.query(queryUpdateFlight, [depart_airp, depart_date, depart_time, arrive_airp, arrive_date, arrive_time, flight_id], function(error, rows, fields) {
         if (error) {
 
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            // Log the error to the terminal so we know what went wrong
             console.log(error);
             res.sendStatus(400);
         }
@@ -368,7 +364,7 @@ app.put('/put-hotel-ajax', function(req, res, next) {
     db.pool.query(queryUpdateHotel, [hotel_name, hotel_address, in_date, in_time, out_date, out_time, hotel_id], function(error, rows, fields) {
         if (error) {
 
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            // Log the error to the terminal so we know what went wrong
             console.log(error);
             res.sendStatus(400);
         }

@@ -1,19 +1,5 @@
 <!-- RESPONSIVE MAP -->
-<style>
-.map-responsive{
-    overflow:hidden;
-    padding-bottom:56.25%;
-    position:relative;
-    height:0;
-}
-.map-responsive iframe{
-    left:0;
-    top:0;
-    height:100%;
-    width:100%;
-    position:absolute;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="/assets/css/map.css" media=”screen” />
 
 <!-- QUERY PARAMETERS -->
 <script>
@@ -28,7 +14,6 @@
     return result;
   }
   const destination = getQueryString()["destination"];
-  var API_KEY = process.env.API_KEY;
 </script>
 
 <!-- FIND ACTIVITIES PAGE -->
@@ -40,19 +25,19 @@
           <div class="row table-responsive align-middle">
 
             <!-- START MENU BUTTON -->
-            <a onclick="window.location='/startMenu'+window.location.search;"><button class="btn btn-outline-secondary mb-5" type="submit" align=left>Back to Start Menu</button></a>
+            <a onclick="window.location='/startMenu'+window.location.search;">
+            <button class="btn btn-outline-secondary mb-5" type="submit" align=left> x </button>
+            </a>
 
             <!-- FIND ACTIVITIES -->
             <h1><br>Find Activities:</h1>
-            <hr>
-
             <p>View activities in <span id='destinationName'><br></span>:</p>
             <script>
               document.getElementById("destinationName").innerHTML = destination;
             </script>
 
             <!-- START OVER BUTTON -->
-            <a href="/" class="btn btn-outline-secondary my-2 my-sm-0" type="submit" onclick="window.location='/index">Change destination?</a>
+            <a href="/" class="btn btn-outline-secondary my-2 my-sm-0" type="submit" onclick="window.location='/index"> &#x21ba; New Destination</a>
 
             <div style="margin-top:5%; margin-bottom: 5%;">
             <div class="map-responsive">

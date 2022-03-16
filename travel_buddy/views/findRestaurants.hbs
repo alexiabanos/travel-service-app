@@ -1,20 +1,7 @@
 <!-- RESPONSIVE MAP -->
-<style>
-.map-responsive{
-    overflow:hidden;
-    padding-bottom:56.25%;
-    position:relative;
-    height:0;
-}
-.map-responsive iframe{
-    left:0;
-    top:0;
-    height:100%;
-    width:100%;
-    position:absolute;
-}
-</style>
-<!-- MAP API PARAMETERS -->
+<link rel="stylesheet" type="text/css" href="map.css" media=”screen” />
+
+<!-- QUERY PARAMETERS -->
 <script>
   function getQueryString() {
     var result = {}, queryString = location.search.slice(1),
@@ -27,6 +14,7 @@
     return result;
   }
   const destination = getQueryString()["destination"];
+  var API_KEY = process.env.API_KEY;
 </script>
 
 <!-- FIND RESTAURANTS PAGE -->
@@ -49,12 +37,12 @@
             </script>
 
             <!-- START OVER BUTTON -->
-            <a href="/" class="btn btn-outline-secondary my-2 my-sm-0" type="submit"></button>Change Destination</a>
+            <a href="/" class="btn btn-outline-secondary my-2 my-sm-0" type="submit"></button> &#x21ba; New Destination</a>
 
             <div style="margin-top:5%; margin-bottom: 5%;">
             <div class="map-responsive">
                 <iframe width="600" height="450" style="border:0" loading="lazy" allowfullscreen id="map"></iframe>
-                <script>document.getElementById('map').src = 'https://www.google.com/maps/embed/v1/search?key=${API_KEY}=attractions+in+'+destination+'/';</script>
+                <script>document.getElementById('map').src = 'https://www.google.com/maps/embed/v1/search?key=${API_KEY}&q=attractions+in+'+destination+'/';</script>
             </div>
             </div>
           </div>
