@@ -39,8 +39,8 @@
         <div class="container">
           <div class="row table-responsive align-middle">
 
-            <!--BACK BUTTON -->
-            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" onclick="history.back()">Back</button>
+            <!-- START MENU BUTTON -->
+            <a onclick="window.location='/startMenu'+window.location.search;"><button class="btn btn-outline-secondary mb-5" type="submit" align=left>Back to Start Menu</button></a>
 
             <!-- FIND ACTIVITIES -->
             <h1><br>Find Activities:</h1>
@@ -59,7 +59,7 @@
 
               <!-- MAP IFRAME -->
               <iframe id='map' width="600" height="450" style="border:0" loading="lazy" allowfullscreen></iframe>
-              <script>document.getElementById('map').src = 'https://www.google.com/maps/embed/v1/search?key='+API_KEY+'&q=attractions+in+'+destination+'/';</script>
+              <script>document.getElementById('map').src = 'https://www.google.com/maps/embed/v1/search?key=${API_KEY}&q=attractions+in+'+destination+'/';</script>
             </div>
             </div>
           </div>
