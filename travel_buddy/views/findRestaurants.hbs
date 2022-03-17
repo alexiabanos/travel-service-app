@@ -1,51 +1,36 @@
-<!-- RESPONSIVE MAP -->
-<link rel="stylesheet" type="text/css" href="map.css" media=”screen” />
-
-<!-- QUERY PARAMETERS -->
-<script>
-  function getQueryString() {
-    var result = {}, queryString = location.search.slice(1),
-        re = /([^&=]+)=([^&]*)/g, m;
-
-    while (m = re.exec(queryString)) {
-      result[decodeURIComponent(m[1])] = decodeURIComponent(m[2].replace(/\+/g, ' '));
-    }
-
-    return result;
-  }
-  const destination = getQueryString()["destination"];
-  var API_KEY = process.env.API_KEY;
-</script>
+<!-- RESPONSIVE MAP CSS -->
+<link rel="stylesheet" type="text/css" href="./assets/css/map.css" media=”screen” />
 
 <!-- FIND RESTAURANTS PAGE -->
 
 <div class="table-responsive">
-    <div class="table-wrapper">		
-      <div style="margin-top:100px; margin-bottom: 100px;">
-        <div class="container">
-          <div class="row table-responsive align-middle">
+  <div class="table-wrapper">		
+    <div style="margin-top:100px; margin-bottom: 100px;">
+      <div class="container">
+        <div class="row table-responsive align-middle">
 
-            <!-- START MENU BUTTON -->
-            <a onclick="window.location='/startMenu'+window.location.search;"><button class="btn btn-outline-secondary mb-5" type="submit" align=left>Back to Start Menu</button></a>
+          <!-- START MENU BUTTON -->
+          <a onclick="window.location='/startMenu'+window.location.search;">
+          <button class="btn btn-outline-secondary mb-5" type="submit" align=left>x</button></a>
 
-            <!-- FIND RESTAURANTS -->
-            <h1><br>Find Restaurants:</h1>
-            <hr>
-            <p>View restaurants in <span id='destinationName'></span>:</p>
-            <script>
-              document.getElementById("destinationName").innerHTML = destination;
-            </script>
+          <!-- FIND RESTAURANTS -->
+          <h1><br>Find Restaurants:</h1>
+          <p>View restaurants in <span id='destinationName'></span>:</p>
 
-            <!-- START OVER BUTTON -->
-            <a href="/" class="btn btn-outline-secondary my-2 my-sm-0" type="submit"></button> &#x21ba; New Destination</a>
-
-            <div style="margin-top:5%; margin-bottom: 5%;">
+          <!-- START OVER BUTTON -->
+          <a href="/" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">&#x21ba; New Destination</a>
+          
+          <!-- MAP IFRAME -->
+          <div style="margin-top:5%; margin-bottom: 5%;">
             <div class="map-responsive">
-                <iframe width="600" height="450" style="border:0" loading="lazy" allowfullscreen id="map"></iframe>
-                <script>document.getElementById('map').src = 'https://www.google.com/maps/embed/v1/search?key=${API_KEY}&q=attractions+in+'+destination+'/';</script>
-            </div>
+              <iframe id='restaurantMap' width="600" height="450" style="border:0" loading="lazy" allowfullscreen></iframe>
             </div>
           </div>
-        </div>
       </div>
     </div>
+
+  </div>
+</div>
+
+<!-- GET DESTINATION NAME JS-->
+<script src="./js/getDestination.js"></script>

@@ -1,7 +1,6 @@
 /*
     SETUP
 */
-const axios = require('axios')
 
 // Express
 const express = require('express');
