@@ -11,19 +11,32 @@
 
           <!-- START MENU BUTTON -->
           <a onclick="window.location='/startMenu'+window.location.search;">
-          <button class="btn btn-outline-secondary mb-5" type="submit" align=left>x</button></a>
+          <button class="btn btn-outline-secondary mb-5" 
+            type="submit" 
+            align=left>
+            x</button>
+          </a>
 
           <!-- FIND RESTAURANTS -->
           <h1><br>Find Restaurants:</h1>
-          <p>View restaurants in <span id='destinationName'></span>:</p>
+          <p>View restaurants in 
+            <span id='destinationName'>
+            </span>
+            :</p>
 
           <!-- START OVER BUTTON -->
-          <a href="/" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">&#x21ba; New Destination</a>
+          <a href="/" 
+            class="btn btn-outline-secondary my-2 my-sm-0" 
+            type="submit">&#x21ba; New Destination</a>
           
           <!-- MAP IFRAME -->
           <div style="margin-top:5%; margin-bottom: 5%;">
             <div class="map-responsive">
-              <iframe id='restaurantMap' width="600" height="450" style="border:0" loading="lazy" allowfullscreen></iframe>
+              <iframe id='restaurantMap' 
+                width="900" height="600" 
+                style="border:0" 
+                loading="lazy" allowfullscreen>
+              </iframe>
             </div>
           </div>
       </div>
@@ -32,5 +45,5 @@
   </div>
 </div>
 
-<!-- GET DESTINATION NAME JS-->
-<script src="./js/getDestination.js"></script>
+<!-- HELPER FUNCTIONS JS -->
+<script src="./js/findRestaurants.js"></script>

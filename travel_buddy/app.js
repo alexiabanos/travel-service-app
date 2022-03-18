@@ -8,8 +8,9 @@ const app = express();
 PORT = 4922;
 
 // Database
-var db = require('./database/db-connector')
+var db = require('./database/db-connector.js')
 
+// API Key 
 require('dotenv').config()
 const API_KEY = process.env.API_KEY;
 
@@ -35,7 +36,7 @@ app.use(express.static(__dirname + '/public'));
 */
 
 app.get('/', (req, res) => {
-    res.render('index', { layout: 'main2' })
+    res.render('index', { layout: 'main' })
 });
 
 app.get('/addEvents', (req, res) => {
@@ -44,7 +45,7 @@ app.get('/addEvents', (req, res) => {
 
     db.pool.query(query1, function(error, rows, fields) { // Execute the query
 
-        return res.render('addEvents', { data: rows, layout: 'main2' });
+        return res.render('addEvents', { data: rows, layout: 'main' });
     })
 });
 
@@ -53,7 +54,7 @@ app.get('/addFlights', (req, res) => {
 
     db.pool.query(query1, function(error, rows, fields) { // Execute the query
 
-        return res.render('addFlights', { data: rows, layout: 'main2' });
+        return res.render('addFlights', { data: rows, layout: 'main' });
     })
 });
 
@@ -62,7 +63,7 @@ app.get('/addHotels', (req, res) => {
 
     db.pool.query(query1, function(error, rows, fields) { // Execute the query
 
-        return res.render('addHotels', { data: rows, layout: 'main2' });
+        return res.render('addHotels', { data: rows, layout: 'main' });
     })
 });
 
@@ -116,7 +117,7 @@ app.post('/add-event-ajax', function(req, res) {
 
         // Check to see if there was an error
         if (error) {
-            // Log the error to the terminal so we know what went wrong 
+            // Log the error to the terminal 
             console.log(error)
             res.sendStatus(400);
         } else {
@@ -127,7 +128,7 @@ app.post('/add-event-ajax', function(req, res) {
                 // If there was an error on the second query, send a 400
                 if (error) {
 
-                    // Log the error to the terminal so we know what went wrong
+                    // Log the error to the terminal
                     console.log(error);
                     res.sendStatus(400);
                 }
@@ -152,7 +153,7 @@ app.post('/add-hotel-ajax', function(req, res) {
 
         // Check to see if there was an error
         if (error) {
-            // Log the error to the terminal so we know what went wrong
+            // Log the error to the terminal
             console.log(error)
             res.sendStatus(400);
         } else {
@@ -163,7 +164,7 @@ app.post('/add-hotel-ajax', function(req, res) {
                 // If there was an error on the second query, send a 400
                 if (error) {
 
-                    // Log the error to the terminal so we know what went wrong
+                    // Log the error to the terminal
                     console.log(error);
                     res.sendStatus(400);
                 }
@@ -188,7 +189,7 @@ app.post('/add-flight-ajax', function(req, res) {
 
         // Check to see if there was an error
         if (error) {
-            // Log the error to the terminal so we know what went wrong
+            // Log the error to the terminal
             console.log(error)
             res.sendStatus(400);
         } else {
@@ -199,7 +200,7 @@ app.post('/add-flight-ajax', function(req, res) {
                 // If there was an error on the second query, send a 400
                 if (error) {
 
-                    // Log the error to the terminal so we know what went wrong
+                    // Log the error to the terminal
                     console.log(error);
                     res.sendStatus(400);
                 }
@@ -226,7 +227,7 @@ app.delete('/delete-event-ajax/', function(req, res, next) {
     // Run the 1st query
     db.pool.query(deleteEvent, [event_id], function(error, rows, fields) {
         if (error) {
-            // Log the error to the terminal so we know what went wrong
+            // Log the error to the terminal
             console.log(error);
             res.sendStatus(400);
         }
@@ -243,7 +244,7 @@ app.delete('/delete-flight-ajax/', function(req, res, next) {
     // Run the 1st query
     db.pool.query(deleteFlight, [flight_id], function(error, rows, fields) {
         if (error) {
-            // Log the error to the terminal so we know what went wrong
+            // Log the error to the terminal
             console.log(error);
             res.sendStatus(400);
         }
@@ -260,7 +261,7 @@ app.delete('/delete-hotel-ajax/', function(req, res, next) {
     // Run the 1st query
     db.pool.query(deleteHotel, [hotel_id], function(error, rows, fields) {
         if (error) {
-            // Log the error to the terminal so we know what went wrong
+            // Log the error to the terminal
             console.log(error);
             res.sendStatus(400);
         }
@@ -287,12 +288,12 @@ app.put('/put-event-ajax', function(req, res, next) {
     db.pool.query(queryUpdateEvent, [event_title, event_date, event_time, event_type, event_id], function(error, rows, fields) {
         if (error) {
 
-            // Log the error to the terminal so we know what went wrong
+            // Log the error to the terminal
             console.log(error);
             res.sendStatus(400);
         }
 
-        // If there was no error, we run our second query and return that data 
+        // Run our second query and return that data 
         else {
             // Run the second query
             db.pool.query(selectEvent, [event_id], function(error, rows, fields) {
@@ -325,12 +326,12 @@ app.put('/put-flight-ajax', function(req, res, next) {
     db.pool.query(queryUpdateFlight, [depart_airp, depart_date, depart_time, arrive_airp, arrive_date, arrive_time, flight_id], function(error, rows, fields) {
         if (error) {
 
-            // Log the error to the terminal so we know what went wrong
+            // Log the error to the terminal
             console.log(error);
             res.sendStatus(400);
         }
 
-        // If there was no error, we run our second query and return that data 
+        // Run our second query and return that data 
         else {
             // Run the second query
             db.pool.query(selectFlight, [flight_id], function(error, rows, fields) {
@@ -363,12 +364,12 @@ app.put('/put-hotel-ajax', function(req, res, next) {
     db.pool.query(queryUpdateHotel, [hotel_name, hotel_address, in_date, in_time, out_date, out_time, hotel_id], function(error, rows, fields) {
         if (error) {
 
-            // Log the error to the terminal so we know what went wrong
+            // Log the error to the terminal
             console.log(error);
             res.sendStatus(400);
         }
 
-        // If there was no error, we run our second query and return that data
+        // Run our second query and return that data
         else {
             // Run the second query
             db.pool.query(selectHotel, [hotel_id], function(error, rows, fields) {

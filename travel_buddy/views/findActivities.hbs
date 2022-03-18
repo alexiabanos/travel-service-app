@@ -11,20 +11,34 @@
 
           <!-- START MENU BUTTON -->
           <a onclick="window.location='/startMenu'+window.location.search;">
-          <button class="btn btn-outline-secondary mb-5" type="submit" align=left> x </button>
+          <button class="btn btn-outline-secondary mb-5" 
+            type="submit" 
+            align=left> 
+            x </button>
           </a>
 
           <!-- FIND ACTIVITIES -->
           <h1><br>Find Activities:</h1>
-          <p>View activities in <span id='destinationName'><br></span>:</p>
+          <p>View activities in 
+            <span id='destinationName'>
+              <br>
+              </span>
+            :</p>
 
           <!-- START OVER BUTTON -->
-          <a href="/" class="btn btn-outline-secondary my-2 my-sm-0" type="submit" onclick="window.location='/index"> &#x21ba; New Destination</a>
+          <a href="/" 
+            class="btn btn-outline-secondary my-2 my-sm-0" 
+            type="submit" onclick="window.location='/index"> 
+            &#x21ba; New Destination</a>
         
         <!-- MAP IFRAME -->
         <div style="margin-top:5%; margin-bottom: 5%;">
           <div class="map-responsive">
-            <iframe id='activitiesMap' width="600" height="450" style="border:0" loading="lazy" allowfullscreen></iframe>
+            <iframe id='activitiesMap' 
+              width="900" height="600" 
+              style="border:0" 
+              loading="lazy" allowfullscreen>
+              </iframe>
           </div>
         </div>
       
@@ -33,5 +47,5 @@
   </div>
 </div>
 
-<!-- GET DESTINATION NAME JS-->
-<script src="./js/getDestination.js"></script>
+<!-- HELPER FUNCTIONS JS -->
+<script src="./js/findActivities.js"></script>

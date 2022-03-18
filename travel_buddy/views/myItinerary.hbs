@@ -6,12 +6,15 @@
         <div class="row table-responsive align-middle">
 
           <!--BACK BUTTON -->
-			    <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" onclick="window.location='/addMenu'+window.location.search;"> x </button>
+			    <button 
+            class="btn btn-outline-secondary my-2 my-sm-0" 
+            type="submit" 
+            onclick="window.location='/addMenu'+window.location.search;"> 
+            x </button>
 
-          <!-- TRIP DETAILS -->
           <h1><br>Travel Itinerary</h1>
 
-          <!-- FLIGHTS-->
+          <!-- FLIGHTS TABLE-->
           <h2><br>Flights</h2>
           <table class="table" > 
               <thead class="table-light text-nowrap">
@@ -38,10 +41,13 @@
               </tbody>
           </table>
           
-          <!-- MODIFY FLIGHTS -->
-			    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" onclick="window.location='/addFlights'+window.location.search;"> Modify Flights  &#8680;</button>
+          <!-- MODIFY FLIGHTS BUTTON -->
+			    <button class="btn btn-outline-primary my-2 my-sm-0" 
+            type="submit" 
+            onclick="window.location='/addFlights'+window.location.search;"> 
+            Modify Flights  &#8680;</button>
 
-          <!-- HOTELS -->
+          <!-- HOTELS TABLE -->
           <h2><br>Hotels</h2>
           <table class="table" >
               <thead class="table-light">
@@ -67,11 +73,15 @@
                   {{/each}}
               </tbody>
           </table>
+          
           <!-- MODIFY HOTELS -->
-			    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" onclick="window.location='/addHotels'+window.location.search;"> Modify Hotels  &#8680;</button>
+			    <button class="btn btn-outline-primary my-2 my-sm-0" 
+            type="submit" 
+            onclick="window.location='/addHotels'+window.location.search;"> 
+            Modify Hotels  &#8680;</button>
 
-          <!-- EVENTS -->
-          <h2><br>Add Events</h2>
+          <!-- EVENTS TABLE-->
+          <h2><br>Events</h2>
           <table class="table" >
               <thead class="table-light">
                   <tr>
@@ -93,8 +103,11 @@
               </tbody>
           </table>
 
-          <!-- MODIFY EVENTS -->
-			    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" onclick="window.location='/addEvents'+window.location.search;"> Modify Events  &#8680;</button>
+          <!-- MODIFY EVENTS BUTTON -->
+			    <button class="btn btn-outline-primary my-2 my-sm-0" 
+            type="submit" 
+            onclick="window.location='/addEvents'+window.location.search;"> 
+            Modify Events  &#8680;</button>
 
         </div>
       </div> 
