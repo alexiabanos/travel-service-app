@@ -11,16 +11,22 @@
 			  
 			  <!-- ADD MENU BUTTON -->
             	<a onclick="window.location='/addMenu'+window.location.search;"><button class="btn btn-outline-secondary mb-5" type="submit" align=left> x </button></a>
-                
-                <!-- FLIGHTS -->
-                <h1>Flights</h1>
-				<br>
-                <p>View, edit or delete your flight details:</p>
 
-                <!-- ADD BUTTON -->
+
+               
                 <table>
 					<tbody>
-                    <tr>
+					<tr>
+					<td>
+						<!-- FLIGHTS -->
+						<h1>Flights
+						<img src="./assets/img/plane.png"
+						width="100" height="100">
+						</h1>
+					</td>
+					</tr>
+                    <tr> 
+					<!-- ADD BUTTON -->
                       <td colspan="6" align="left">
                       <button type="button" class="btn btn-primary mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#addFlightModal" title="Add">Add A New Flight + </button>
                       </td>
@@ -53,12 +59,25 @@
 						<td>{{this.arriveTime}}</td>
 						
 						<!-- DELETE BUTTON-->
-						<td><a href="#deleteFlightModal" class="delete" data-bs-toggle="modal" data-bs-target="#deleteFlightModal{{this.flight_id}}"  data-value="{{this.flight_id}}">
-						<button class="btn btn-outline-danger my-2 my-sm-0" >Delete</button></a></td>
+						<td>
+						<a href="#deleteFlightModal" 
+							class="delete" 
+							data-bs-toggle="modal" 
+							data-bs-target="#deleteFlightModal{{this.flight_id}}"  
+							data-value="{{this.flight_id}}">
+						<button class="btn btn-outline-danger my-2 my-sm-0">
+						<span class="bi-trash"></span>
+						</button>
+						</a>
+						</td>
 						
 						<!-- EDIT BUTTON-->
 						<td><a href="#editFlightModal" class="update" data-bs-toggle="modal" data-bs-target="#editFlightModal{{this.flight_id}}"  data-value="{{this.flight_id}}">
-						<button class="btn btn-outline-warning my-2 my-sm-0" >Edit</button></a></td>
+						<button class="btn btn-outline-primary my-2 my-sm-0">
+						<span class="bi-pencil">
+						</span></button>
+						</a>
+						</td>
 						</tr>
                       {{/each}}
                     </tbody>

@@ -1,4 +1,4 @@
-
+let API_KEY = 'AIzaSyDdhXtrqiuBfTBed5u45aDw7OXsvOpPORo';
 
 // Parse query parameters
 function getQueryString() {
@@ -10,10 +10,10 @@ function getQueryString() {
     }
     return result;
   }
-
+  var destination = getQueryString()["destination"];
+  
 // Set default sentence if destination is undefined
 if (typeof destination === "undefined" || null){
-
   // Alert user to enter destination
   let destinationInput = prompt("To find restaurants, please enter a destination:", "New York, NY");
   if (destinationInput == null || destinationInput == "") {
