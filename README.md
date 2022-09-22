@@ -1,6 +1,6 @@
 # CS361 Final Project
 
-Project for CS 361: Includes TravelBuddy Traver Service and Unit Conversion microservice.
+Travel Planner Node.js app with DB backend.
 
 ## Authors
 
